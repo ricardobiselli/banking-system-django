@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Transaction History</title>
+</head>
+<body>
+    <h2>Transaction History</h2>
+    <ul>
+        {% for transaction in transactions %}
+            <li>{{ transaction.sender.user.username }} sent {{ transaction.amount }} to {{ transaction.receiver.user.username }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

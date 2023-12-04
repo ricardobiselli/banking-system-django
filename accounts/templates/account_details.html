@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Account Details</title>
+  </head>
+  <body>
+    <div class="main-container">
+      <h2>Account Details</h2>
+      <p>User: {{ account.user.username }}</p>
+      <p>Account number: {{ account.account_number }}</p>
+      <p>Balance: ${{ account.balance }}</p>
+
+      <a href="{% url 'transaction' %}">Transfer to another account</a><br />
+
+      <a href="{% url 'logout' %}">Logout</a>
+    </div>
+  </body>
+</html>
