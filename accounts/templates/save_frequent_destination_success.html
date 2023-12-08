@@ -6,13 +6,10 @@
 <body>
     <h2>Save Frequent Destination Success</h2>
     <p>Your frequent destination has been saved successfully!</p>
-
     <h3>Summary:</h3>
     <p>User: {{ user_profile.user.username }}</p>
     <p>Destination Account Number: {{ destination_account_number }}</p>
     <p>Nickname: {{ nickname }}</p>
-
-    <!-- Link to go back to the account details or any other relevant page -->
     <a href="{% url 'account_details' %}">Go back to Account Details</a>
 </body>
 </html>

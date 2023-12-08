@@ -10,5 +10,6 @@ urlpatterns = [
     path('transactionhistory/', views.transaction_history, name='transaction_history'),
     path('logout/', views.logout_view, name='logout'), 
     path('transaction/', views.make_transaction, name='transaction'),
-    path('save_frequent_destination/', views.save_frequent_destination, name='save_frequent_destination')
+    path('save_frequent_destination/', views.save_frequent_destination, name='save_frequent_destination'),
+    path('delete_frequent_destination/<int:destination_id>/', views.delete_frequent_destination, name='delete_frequent_destination'),
 ]

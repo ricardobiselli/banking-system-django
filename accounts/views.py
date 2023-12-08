@@ -1,6 +1,6 @@
 import random, decimal
 from django.contrib.auth import login, logout
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from .models import Account, Transaction, UserProfile, TransferDestination, save_to_frequent_transfer
@@ -63,38 +63,51 @@ def make_transaction(request):
 
             sender_account.save()
             receiver_account.save()
-            
-            user_profile, created = UserProfile.objects.get_or_create(user=request.user)
-            #user_profile = UserProfile.objects.get(user=request.user)
-            save_to_frequent_transfer(user_profile, receiver_account_number)
 
+            return render(request, 'transaction_success.html', {
+                'receiver_account_number': receiver_account_number
+            })
 
-        return render(request, 'transaction_success.html')
-    else:
-        return render(request, 'transaction.html')
+    return render(request, 'transaction.html')
+
 
 def save_frequent_destination(request):
     if request.method == 'POST':
         receiver_account_number = request.POST.get('receiver_account_number')
         nickname = request.POST.get('nickname')
 
-        # Assuming you've retrieved the user's profile here
         user_profile = UserProfile.objects.get(user=request.user)
 
-        # Save the transaction details as a frequent destination
-        TransferDestination.objects.create(
+        existing_destination = TransferDestination.objects.filter(
             user_profile=user_profile,
-            destination_account_number=receiver_account_number,
-            nickname=nickname
-        )
-        
-        context = {
-            'user_profile': user_profile,
-            'destination_account_number': receiver_account_number,
-            'nickname': nickname,
-        }
+            destination_account_number=receiver_account_number
+        ).exists()
+
+        if not existing_destination:
+            TransferDestination.objects.create(
+                user_profile=user_profile,
+                destination_account_number=receiver_account_number,
+                nickname=nickname
+            )
+            context = {
+                'message': 'Frequent destination saved successfully.'
+            }
+        else:
+            context = {
+                'message': 'Frequent destination already exists.'
+            }
 
         return render(request, 'save_frequent_destination_success.html', context)
 
-    # Handle invalid requests or redirect to another page if needed
-    return render(request, 'error_page.html')  # Replace 'error_page.html' with an appropriate error template
+    return render(request, 'error_page.html')  
+
+def delete_frequent_destination(request, destination_id):
+    destination = get_object_or_404(TransferDestination, pk=destination_id)
+
+    if destination.user_profile.user != request.user:
+        # ?????
+        pass
+
+    destination.delete()
+
+    return redirect('account_details')
