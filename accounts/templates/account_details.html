@@ -11,6 +11,19 @@
       <p>Balance: ${{ account.balance }}</p>
 
       <a href="{% url 'transaction' %}">Transfer to another account</a><br />
+      <h3>Frequent Destinations:</h3>
+      {% if frequent_destinations %}
+        <ul>
+          {% for destination in frequent_destinations %}
+            <li>
+              <p>Destination Account Number: {{ destination.destination_account_number }}</p>
+              <p>Nickname: {{ destination.nickname }}</p>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>No frequent destinations found.</p>
+      {% endif %}
 
       <a href="{% url 'logout' %}">Logout</a>
     </div>

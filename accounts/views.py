@@ -3,8 +3,7 @@ from django.contrib.auth import login, logout
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-from .models import Account, Transaction
-from django.contrib.auth.models import User
+from .models import Account, Transaction, UserProfile, TransferDestination, save_to_frequent_transfer
 from django.db import transaction
 
 
@@ -12,6 +11,7 @@ from django.db import transaction
 
 def generate_account_number():
     return str(random.randint(1000000000, 9999999999))  
+
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -30,8 +30,10 @@ def register(request):
 @login_required
 def account_details(request):
     user_account = Account.objects.get(user=request.user)
-    return render(request, 'account_details.html', {'account': user_account})
-
+    user_profile = UserProfile.objects.get(user=request.user)
+    frequent_destinations = TransferDestination.objects.filter(user_profile=user_profile)
+    
+    return render(request, 'account_details.html', {'account': user_account, 'frequent_destinations': frequent_destinations})
 
 def transaction_history(request):
     user_account = Account.objects.get(user=request.user)
@@ -61,7 +63,38 @@ def make_transaction(request):
 
             sender_account.save()
             receiver_account.save()
+            
+            user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+            #user_profile = UserProfile.objects.get(user=request.user)
+            save_to_frequent_transfer(user_profile, receiver_account_number)
+
 
         return render(request, 'transaction_success.html')
     else:
         return render(request, 'transaction.html')
+
+def save_frequent_destination(request):
+    if request.method == 'POST':
+        receiver_account_number = request.POST.get('receiver_account_number')
+        nickname = request.POST.get('nickname')
+
+        # Assuming you've retrieved the user's profile here
+        user_profile = UserProfile.objects.get(user=request.user)
+
+        # Save the transaction details as a frequent destination
+        TransferDestination.objects.create(
+            user_profile=user_profile,
+            destination_account_number=receiver_account_number,
+            nickname=nickname
+        )
+        
+        context = {
+            'user_profile': user_profile,
+            'destination_account_number': receiver_account_number,
+            'nickname': nickname,
+        }
+
+        return render(request, 'save_frequent_destination_success.html', context)
+
+    # Handle invalid requests or redirect to another page if needed
+    return render(request, 'error_page.html')  # Replace 'error_page.html' with an appropriate error template

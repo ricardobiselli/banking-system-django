@@ -5,10 +5,12 @@
 </head>
 <body>
     <h2>Please enter the receiver's account number</h2>
-    <form method="post">
+    <form method="post" action="{% url 'save_frequent_destination' %}">
         {% csrf_token %}
         <label for="receiver_account_number">Receiver's Account Number:</label><br>
         <input type="text" id="receiver_account_number" name="receiver_account_number"><br>
+        <label for="nickname">Nickname:</label><br>
+        <input type="text" id="nickname" name="nickname"><br>
         <label for="amount">Amount:</label><br>
         <input type="text" id="amount" name="amount"><br>
         <input type="submit" value="Submit">
