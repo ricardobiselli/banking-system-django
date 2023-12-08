@@ -5,7 +5,7 @@
 </head>
 <body>
     <h2>Save as Frequent Destination?</h2>
-    <form method="post" action="{% url 'save_frequent_destination' %}">
+    <form method="post" action="{% url 'save_frequent_destination_prompt' %}">
         {% csrf_token %}
         <input type="hidden" name="receiver_account_number" value="{{ receiver_account_number }}">
         <label for="nickname">Nickname:</label><br>

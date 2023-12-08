@@ -53,7 +53,7 @@ def make_transaction(request):
         try:
             receiver_account = Account.objects.get(account_number=receiver_account_number)
         except Account.DoesNotExist:
-            return render(request, 'transaction.html', {'error_message': 'Receiver account not found'})
+            return render(request, 'make_transaction.html', {'error_message': 'Receiver account not found'})
 
         with transaction.atomic():
             transaction_obj = Transaction.objects.create(sender=sender_account, receiver=receiver_account, amount=amount)
@@ -68,10 +68,10 @@ def make_transaction(request):
                 'receiver_account_number': receiver_account_number
             })
 
-    return render(request, 'transaction.html')
+    return render(request, 'make_transaction.html')
 
 
-def save_frequent_destination(request):
+def save_frequent_destination_prompt(request):
     if request.method == 'POST':
         receiver_account_number = request.POST.get('receiver_account_number')
         nickname = request.POST.get('nickname')
@@ -97,7 +97,7 @@ def save_frequent_destination(request):
                 'message': 'Frequent destination already exists.'
             }
 
-        return render(request, 'save_frequent_destination_success.html', context)
+        return render(request, 'frequent_destination_saved_successfuly.html', context)
 
     return render(request, 'error_page.html')  
 

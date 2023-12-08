@@ -6,10 +6,12 @@
 <body>
     <h2>Success</h2>
     <p>Your transaction was successful!</p>
-    <form method="post" action="{% url 'save_frequent_destination_prompt.html' %}">
+    <form method="post" action="{% url 'save_frequent_destination_prompt' %}">
         {% csrf_token %}
         <input type="hidden" name="receiver_account_number" value="{{ receiver_account_number }}">
-        <input type="hidden" name="nickname" value="{{ receiver_nickname }}">
+        <!-- Add input for nickname -->
+        <label for="nickname">Nickname:</label><br>
+        <input type="text" id="nickname" name="nickname"><br>
         <input type="submit" value="Save as Frequent Destination">
     </form>
     <a href="{% url 'account_details' %}">Go back to Account Details</a>

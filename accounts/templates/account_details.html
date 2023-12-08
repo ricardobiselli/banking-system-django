@@ -12,7 +12,7 @@
       <p>Account number: {{ account.account_number }}</p>
       <p>Balance: ${{ account.balance }}</p>
 
-      <a href="{% url 'transaction' %}">Transfer to another account</a><br />
+      <a href="{% url 'make_transaction' %}">Transfer to another account</a><br />
 
       <h3>Frequent Destinations:</h3>
       {% if frequent_destinations %}
