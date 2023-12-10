@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
+    'djmoney',
 ]
 
 MIDDLEWARE = [
@@ -128,3 +129,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/accounts/account/'
 LOGOUT_REDIRECT_URL = '/accounts/login'
+
+PRESET_CURRENCIES = [
+    ('USD', 'US Dollar'),
+    ('EUR', 'Euro'),
+    ('ARS', 'Argentinian peso'),
+]

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Currency</title>
+</head>
+<body>
+    <h1>Select Currency for Secondary Account</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="currency">Choose Currency:</label>
+        <select id="currency" name="currency">
+            {% for currency_code, currency_name in currencies %}
+                <option value="{{ currency_code }}">{{ currency_name }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <input type="submit" value="Create Account">
+    </form>
+</body>
+</html>

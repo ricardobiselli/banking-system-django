@@ -3,8 +3,10 @@ from django.contrib.auth import login, logout
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-from .models import Account, Transaction, UserProfile, TransferDestination, save_to_frequent_transfer
+from .models import Account, Transaction, UserProfile, TransferDestination
 from django.db import transaction
+from djmoney.models.fields import MoneyField
+from django.conf import settings
 
 
 #milena mile123123 lucia lucia123123
@@ -29,11 +31,12 @@ def register(request):
 
 @login_required
 def account_details(request):
-    user_account = Account.objects.get(user=request.user)
+    user_accounts = Account.objects.filter(user=request.user)
     user_profile = UserProfile.objects.get(user=request.user)
     frequent_destinations = TransferDestination.objects.filter(user_profile=user_profile)
+    #balance = user_accounts.balance
     
-    return render(request, 'account_details.html', {'account': user_account, 'frequent_destinations': frequent_destinations})
+    return render(request, 'account_details.html', {'user_accounts': user_accounts, 'frequent_destinations': frequent_destinations})
 
 def transaction_history(request):
     user_account = Account.objects.get(user=request.user)
@@ -111,3 +114,20 @@ def delete_frequent_destination(request, destination_id):
     destination.delete()
 
     return redirect('account_details')
+
+def open_secondary_account(request):
+    currencies = settings.PRESET_CURRENCIES
+    new_account_number = generate_account_number()
+    
+    if request.method == 'POST':
+        selected_currency = request.POST.get('currency')
+        new_account = Account.objects.create(
+            user=request.user,
+            balance=0.00,
+            account_number=new_account_number,
+            currency=selected_currency
+        )
+        return render(request, 'open_secondary_account.html', {'new_account': new_account})
+
+    return render(request, 'select_currency.html', {'currencies': currencies})
+

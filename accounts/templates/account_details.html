@@ -7,12 +7,18 @@
   </head>
   <body>
     <div class="main-container">
-      <h2>Account Details</h2>
-      <p>User: {{ account.user.username }}</p>
+      <h1>Account Details</h1>
+      {% if user_accounts %}
+        <p>User: {{ user_accounts.first.user.username }}</p>
+      {% endif %}
+      {% for account in user_accounts%}
+      <h2>{{ account.currency }} Account</h2>
+     
       <p>Account number: {{ account.account_number }}</p>
-      <p>Balance: ${{ account.balance }}</p>
-
-      <a href="{% url 'make_transaction' %}">Transfer to another account</a><br />
+      <p>Balance: {{ account.balance }}</p>
+      {% endfor %}
+      <a href="{% url 'make_transaction' %}">Transfer to another account</a><br>
+      <a href="{% url 'open_secondary_account' %}"> Open a new account</a><br>
 
       <h3>Frequent Destinations:</h3>
       {% if frequent_destinations %}

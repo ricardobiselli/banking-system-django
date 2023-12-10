@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Open Secondary account</title>
+    <!-- {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login-styles.css' %}"> -->
+</head>
+<body>
+    <h1>New Secondary account created</h1>
+   <p> Account details </p>
+    <ul>
+        <li> account number: {{new_account.account_number}}</li>
+        <li> Balance: {{new_account.balance}}</li>
+
+        <li> currency: {{new_account.currency}}</li>
+    </ul>
+    <a href="{% url 'account_details' %}">Back to Account Details</a>
+</body>
+</html>
