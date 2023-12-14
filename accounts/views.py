@@ -65,6 +65,8 @@ def get_exchange_rate(base_currency, target_currency):
 
     conn.close()
 
+from djmoney.money import Money
+
 @login_required
 def make_transaction(request):
     user_accounts = Account.objects.filter(user=request.user)
@@ -84,7 +86,6 @@ def make_transaction(request):
         except Account.DoesNotExist:
             return render(request, 'make_transaction.html', {'error_message': 'Receiver account not found'})
 
-        # Check if sender and receiver have different currencies
         if sender_account.currency != receiver_account.currency:
             exchange_rate = get_exchange_rate(sender_account.currency, receiver_account.currency)
 
@@ -94,75 +95,44 @@ def make_transaction(request):
             try:
                 converted_amount = Decimal(amount) * exchange_rate
             except Decimal.InvalidOperation:
-                return render(request, 'make_transaction.html', {'error_message': 'Invalid amount.'})
+                return render(request, 'make_transaction.html', {'error_message': 'Invalid amount or conversion.'})
 
-            # Perform the transaction with converted amount
             with transaction.atomic():
                 transaction_obj = Transaction.objects.create(sender=sender_account, receiver=receiver_account, amount=converted_amount)
 
-                sender_account.balance -= Decimal(amount)
-                receiver_account.balance += converted_amount
+                sender_account_balance = sender_account.balance
+                amount_money = Money(amount, sender_account_balance.currency)
+                
+                if sender_account_balance < amount_money:
+                    return render(request, 'make_transaction.html', {'error_message': 'Insufficient balance.'})
+
+                sender_account.balance -= amount_money
+                receiver_account.balance += Money(converted_amount, receiver_account.balance.currency)
 
                 sender_account.save()
                 receiver_account.save()
 
-                return render(request, 'transaction_success.html', {
-                    'receiver_account_number': receiver_account_number
-                })
+                return render(request, 'transaction_success.html', {'receiver_account_number': receiver_account_number})
                 
         else:
             with transaction.atomic():
                 transaction_obj = Transaction.objects.create(sender=sender_account, receiver=receiver_account, amount=amount)
 
-                sender_account.balance -= decimal.Decimal(amount)
-                receiver_account.balance += decimal.Decimal(amount)
+                sender_account_balance = sender_account.balance
+                amount_money = Money(amount, sender_account_balance.currency)
+
+                if sender_account_balance < amount_money:
+                    return render(request, 'make_transaction.html', {'error_message': 'Insufficient balance.'})
+
+                sender_account.balance -= amount_money
+                receiver_account.balance += amount_money
 
                 sender_account.save()
                 receiver_account.save()
 
-                return render(request, 'transaction_success.html', {
-                    'receiver_account_number': receiver_account_number
-                })
-
-    
+                return render(request, 'transaction_success.html', {'receiver_account_number': receiver_account_number})
 
     return render(request, 'make_transaction.html', {'user_accounts': user_accounts})
-
-####################################
-def make_transaction(request):
-    user_accounts = Account.objects.filter(user=request.user)
-    
-    if request.method == 'POST':
-        sender_account_number = request.POST.get('sender_account')
-        receiver_account_number = request.POST.get('receiver_account_number')
-        amount = request.POST.get('amount')
-
-        try:
-            sender_account = Account.objects.get(account_number=sender_account_number, user=request.user)
-        except Account.DoesNotExist:
-            return render(request, 'make_transaction.html', {'error_message': 'Sender account not found'})
-
-        try:
-            receiver_account = Account.objects.get(account_number=receiver_account_number)
-        except Account.DoesNotExist:
-            return render(request, 'make_transaction.html', {'error_message': 'Receiver account not found'})
-
-        with transaction.atomic():
-            transaction_obj = Transaction.objects.create(sender=sender_account, receiver=receiver_account, amount=amount)
-
-            sender_account.balance -= decimal.Decimal(amount)
-            receiver_account.balance += decimal.Decimal(amount)
-
-            sender_account.save()
-            receiver_account.save()
-
-            return render(request, 'transaction_success.html', {
-                'receiver_account_number': receiver_account_number
-            })
-
-    return render(request, 'make_transaction.html', {'user_accounts': user_accounts})
-   
-    
 
 
 def save_frequent_destination_prompt(request):
