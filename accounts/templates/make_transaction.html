@@ -2,18 +2,28 @@
 <html>
 <head>
     <title>Make Transaction</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}">
 </head>
 <body>
-    <h2>Please enter the receiver's account number</h2>
-    <form method="post" action="{% url 'make_transaction' %}">
-        {% csrf_token %}
-        <label for="receiver_account_number">Receiver's Account Number:</label><br>
-        <input type="text" id="receiver_account_number" name="receiver_account_number"><br>
-        <!--<label for="nickname">Nickname:</label><br>-->
-         <!-- <input type="text" id="nickname" name="nickname"><br>-->
-        <label for="amount">Amount:</label><br>
-        <input type="text" id="amount" name="amount"><br>
-        <input type="submit" value="Submit">
-    </form>
+    <div class="main-container">
+        <h2>Please select sender and enter the receiver's account number</h2>
+        <form method="post" action="{% url 'make_transaction' %}">
+            {% csrf_token %}
+            <label for="sender_account">Sender's Account:</label><br>
+            <select id="sender_account" name="sender_account">
+                {% for account in user_accounts %}
+                    <option value="{{ account.account_number }}">{{ account.account_number }} ({{ account.currency }})</option>
+                {% endfor %}
+            </select><br>
+            <label for="receiver_account_number">Receiver's Account Number:</label><br>
+            <input type="text" id="receiver_account_number" name="receiver_account_number"><br>
+            <!--<label for="nickname">Nickname:</label><br>-->
+            <!-- <input type="text" id="nickname" name="nickname"><br>-->
+            <label for="amount">Amount:</label><br>
+            <input type="text" id="amount" name="amount"><br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
 </body>
 </html>

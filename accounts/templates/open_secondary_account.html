@@ -2,10 +2,13 @@
 <html>
 <head>
     <title>Open Secondary account</title>
-    <!-- {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/login-styles.css' %}"> -->
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}">
+
 </head>
 <body>
+    <div class="main-container">
+
     <h1>New Secondary account created</h1>
    <p> Account details </p>
     <ul>
@@ -15,5 +18,6 @@
         <li> currency: {{new_account.currency}}</li>
     </ul>
     <a href="{% url 'account_details' %}">Back to Account Details</a>
+    </div>
 </body>
 </html>

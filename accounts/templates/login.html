@@ -3,9 +3,10 @@
 <head>
     <title>Login</title>
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/login-styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}">
 </head>
 <body>
+    <div class="main-container">
     <h2>Login</h2>
     <form method="post">
         {% csrf_token %}
@@ -13,5 +14,6 @@
         <button type="submit">Login</button>
     </form>
     <a href="{% url 'register' %}">Register</a>
+    </div>
 </body>
 </html>
