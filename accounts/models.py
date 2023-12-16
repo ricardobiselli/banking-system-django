@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from djmoney.models.fields import MoneyField
 
+
 #class UserProfile(models.Model):
 #    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
@@ -13,7 +14,8 @@ class Account(models.Model):
     
     def __str__(self):
         return f"{self.user.username}'s account"
-    
+
+
 class Transaction(models.Model):
     sender = models.ForeignKey(Account, related_name='sent_transactions', on_delete=models.CASCADE)
     receiver = models.ForeignKey(Account, related_name='received_transactions', on_delete=models.CASCADE)

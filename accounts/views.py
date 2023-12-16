@@ -1,35 +1,39 @@
-import random, decimal
+import random
 from django.contrib.auth import login, logout
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-from .models import Account, Transaction, UserProfile, TransferDestination
+from .models import Account, Transaction, UserProfile, TransferDestination, UserProfile
 from django.db import transaction
 from djmoney.models.fields import MoneyField
+from django.db.models.signals import post_save
 from django.conf import settings
 from decimal import Decimal
+from django.dispatch import receiver
 import http.client
 import json
 
 
 #milena mile123123 lucia lucia123123
 
+@receiver(post_save, sender='auth.User')
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+
 def generate_account_number():
     return str(random.randint(1000000000, 9999999999))  
 
 def register(request):
+    form = UserCreationForm()
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            
-           
-            account_number = generate_account_number()
-            Account.objects.create(user=user, account_number=account_number)
-            
+            #account_number = generate_account_number()
+            #Account.objects.create(user = user, account_number = account_number)
             login(request, user)  
-            return redirect('account_details') 
-        form = UserCreationForm()
+            return redirect('open_secondary_account') 
     return render(request, 'register.html', {'form': form})
 
 @login_required

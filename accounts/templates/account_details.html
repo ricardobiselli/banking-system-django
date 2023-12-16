@@ -18,6 +18,7 @@
      
       <p>Account number: {{ account.account_number }}</p>
       <p>Balance: {{ account.balance }}</p>
+      <!--<p>Currency: {{account.currency}}</p>-->
       {% endfor %}
       <a href="{% url 'make_transaction' %}">Transfer to another account</a><br>
       <a href="{% url 'open_secondary_account' %}"> Open a new account</a><br>
