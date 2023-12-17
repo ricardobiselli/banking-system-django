@@ -3,11 +3,12 @@
 <head>
     <title>Make Transaction</title>
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}" />
 </head>
 <body>
     <div class="main-container">
-        <h2>Please select sender and enter the receiver's account number</h2>
+        <h1>Transfer founds</h1>
+        <!--<h2>Please select sender and enter the receiver's account number</h2>-->
         <form method="post" action="{% url 'make_transaction' %}">
             {% csrf_token %}
             <label for="sender_account">Sender's Account:</label><br>

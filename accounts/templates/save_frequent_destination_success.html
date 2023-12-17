@@ -6,12 +6,15 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}">
 </head>
 <body>
-    <h2>Save Frequent Destination Success</h2>
+    <div class="main-container">
+
+    <h1>Save Frequent Destination Success</h1>
     <p>Your frequent destination has been saved successfully!</p>
     <h3>Summary:</h3>
     <p>User: {{ user_profile.user.username }}</p>
     <p>Destination Account Number: {{ destination_account_number }}</p>
     <p>Nickname: {{ nickname }}</p>
     <a href="{% url 'account_details' %}">Go back to Account Details</a>
+    </div>
 </body>
 </html>

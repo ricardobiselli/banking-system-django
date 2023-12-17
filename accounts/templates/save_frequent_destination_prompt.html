@@ -6,6 +6,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}">
 </head>
 <body>
+    <div class="main-container">
+
     <h2>Save as Frequent Destination?</h2>
     <form method="post" action="{% url 'save_frequent_destination_prompt' %}">
         {% csrf_token %}
@@ -14,5 +16,6 @@
         <input type="text" id="nickname" name="nickname"><br>
         <input type="submit" value="Save as Frequent Destination">
     </form>
+    </div>
 </body>
 </html>

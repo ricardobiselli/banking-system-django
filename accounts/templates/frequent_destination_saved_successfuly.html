@@ -2,13 +2,17 @@
 <html>
 <head>
     <title>Frequent Destination Saved</title>
+    {% load static%}
     <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}">
 
 </head>
 <body>
+    <div class="main-container">
+
     <h2>Frequent Destination Saved</h2>
     <p>{{ message }}</p>
     <a href="{% url 'account_details' %}"> back to account details</a>
+    </div>
 </body>
 </html>
 

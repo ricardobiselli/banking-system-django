@@ -1,58 +1,93 @@
-/* Basic CSS for the main container */
 body {
-    font-family: Arial, sans-serif; /* Change font family as needed */
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4; /* Change background color as needed */
-  }
-  
-  .main-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff; /* Container background color */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow for a card-like effect */
-  }
-  
-  h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  h2 {
-    font-size: 20px;
-    margin-top: 20px;
-    margin-bottom: 10px;
-  }
-  
-  p {
-    margin-bottom: 10px;
-  }
-  
-  a {
-    text-decoration: none;
-    color: #0366d6; /* Link color */
-  }
-  
-  a:hover {
-    text-decoration: underline;
-  }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  li {
-    margin-bottom: 10px;
-  }
-  
-  form {
-    display: inline;
-    margin: 0;
-    padding: 0;
-  }
-  input[type="submit"] {
-    cursor: pointer;
-  }
-  
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+.main-container {
+  max-width: 800px;
+  margin-bottom: 30px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sub-container{
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  background-color: #6439FF;
+  color: #fff;
+  padding: 30px 20px;
+  margin: 0;
+}
+
+h2 {
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+p {
+  margin-bottom: 10px;
+}
+
+a {
+  text-decoration: none;
+  color: #0366d6;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+form {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+input[type="submit"] {
+  cursor: pointer;
+}
+
+.button {
+  display: inline-block;
+ align-items: center;
+  padding: 10px 20px;
+  text-decoration: none;
+  background-color: #6439FF;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin: 10px auto;
+
+}
+
+.button:hover {
+  background-color: #6184a8;
+  border: 1px solid black;
+  color: black;
+  transition: background-color 0.3s;
+}

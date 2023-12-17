@@ -5,43 +5,55 @@
   <head>
     <title>Account Details</title>
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/account_details.css' %}" />
   </head>
   <body>
     <div class="main-container">
-      <h1>Account Details</h1>
+        <h1>Account Details</h1>
+      <div class="bar">
       {% if user_accounts %}
-        <p>User: {{ user_accounts.first.user.username }}</p>
-      {% endif %}
-      {% for account in user_accounts%}
-      <h2>{{ account.currency }} Account</h2>
-     
-      <p>Account number: {{ account.account_number }}</p>
-      <p>Balance: {{ account.balance }}</p>
-      <!--<p>Currency: {{account.currency}}</p>-->
-      {% endfor %}
-      <a href="{% url 'make_transaction' %}">Transfer to another account</a><br>
-      <a href="{% url 'open_secondary_account' %}"> Open a new account</a><br>
-
-      <h3>Frequent Destinations:</h3>
-      {% if frequent_destinations %}
-        <ul>
-          {% for destination in frequent_destinations %}
-            <li>
-              <p>Destination Account Number: {{ destination.destination_account_number }}</p>
-              <p>Nickname: {{ destination.nickname }}</p>
-              <form action="{% url 'delete_frequent_destination' destination.id %}" method="post">
-                {% csrf_token %}
-                <input type="submit" value="Delete">
-              </form>
-            </li>
-          {% endfor %}
-        </ul>
-      {% else %}
-        <p>No frequent destinations found.</p>
+      
+        <p id="bar">Welcome! {{ user_accounts.first.user.username }}</p>
       {% endif %}
 
-      <a href="{% url 'logout' %}">Logout</a>
+      <a id="logout" href="{% url 'logout' %}">Logout</a>
+      </div>
+      <p id="subtitle">Your accounts:</p>
+      <div class="accounts-container">
+       
+        {% for account in user_accounts %}
+          <div class="individual-account-container">
+            <h2>{{ account.currency }} Account</h2>
+            <p>Account number: {{ account.account_number }}</p>
+            <p>Balance: {{ account.balance }}</p>
+          </div>
+        {% endfor %}
+        <br />
+        <div class="buttons-container">
+          <a href="{% url 'make_transaction' %}">Transfer to another account</a><br />
+          <a href="{% url 'open_secondary_account' %}">Open a new account</a><br />
+        </div>
+      </div>
+      <div class="accounts-container">
+        <h3>Frequent Destinations:</h3>
+
+        {% if frequent_destinations %}
+            {% for destination in frequent_destinations %}
+            <div class="individual-account-container">
+
+                <p>Destination Account Number: {{ destination.destination_account_number }}</p>
+                <p>Nickname: {{ destination.nickname }}</p>
+                <form action="{% url 'delete_frequent_destination' destination.id %}" method="post">
+                  {% csrf_token %}
+                  <input type="submit" value="Delete" />
+                </form>
+            </div>
+            {% endfor %}         
+        {% else %}
+          <p>No frequent destinations found.</p>
+        {% endif %}
+      </div>
     </div>
   </body>
 </html>

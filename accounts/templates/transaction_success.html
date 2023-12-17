@@ -6,16 +6,21 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}">
 </head>
 <body>
-    <h2>Success</h2>
+    <div class="main-container">
+
+    <h1>Transfer founds</h1>
+    <div class="sub-container">
+
     <p>Your transaction was successful!</p>
     <form method="post" action="{% url 'save_frequent_destination_prompt' %}">
         {% csrf_token %}
         <input type="hidden" name="receiver_account_number" value="{{ receiver_account_number }}">
-        <!-- Add input for nickname -->
-        <label for="nickname">Nickname:</label><br>
+        <label for="nickname">save this account for future transfers with a Nickname:</label><br>
         <input type="text" id="nickname" name="nickname"><br>
         <input type="submit" value="Save as Frequent Destination">
     </form>
     <a href="{% url 'account_details' %}">Go back to Account Details</a>
+    </div>
+    </div>
 </body>
 </html>

@@ -3,17 +3,19 @@
 <head>
     <title>Login</title>
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}"/>
 </head>
 <body>
     <div class="main-container">
-    <h2>Login</h2>
+    <h1>Login</h1>
+    <div class="sub-container">
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Login</button>
+        <button type="submit" id="login-button" class="button">Login</button>
     </form>
-    <a href="{% url 'register' %}">Register</a>
+    <a href="{% url 'register' %}">Dont have an account? Register!</a>
+    </div>
     </div>
 </body>
 </html>

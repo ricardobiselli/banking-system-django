@@ -5,7 +5,6 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from .models import Account, Transaction, UserProfile, TransferDestination, UserProfile
 from django.db import transaction
-from djmoney.models.fields import MoneyField
 from django.db.models.signals import post_save
 from django.conf import settings
 from decimal import Decimal
@@ -181,6 +180,7 @@ def delete_frequent_destination(request, destination_id):
     return redirect('account_details')
 
 def open_secondary_account(request):
+    #change name to open_new_account
     currencies = settings.PRESET_CURRENCIES
     new_account_number = generate_account_number()
     
