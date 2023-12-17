@@ -44,6 +44,7 @@ def account_details(request):
     
     return render(request, 'account_details.html', {'user_accounts': user_accounts, 'frequent_destinations': frequent_destinations})
 
+@login_required
 def transaction_history(request):
     user_account = Account.objects.get(user=request.user)
     transactions = Transaction.objects.filter(sender=user_account) | Transaction.objects.filter(receiver=user_account)
@@ -139,6 +140,8 @@ def make_transaction(request):
 
 
 def save_frequent_destination_prompt(request):
+    
+    user_accounts = Account.objects.filter(user=request.user)
     if request.method == 'POST':
         receiver_account_number = request.POST.get('receiver_account_number')
         nickname = request.POST.get('nickname')
@@ -163,8 +166,8 @@ def save_frequent_destination_prompt(request):
             context = {
                 'message': 'Frequent destination already exists.'
             }
-
-        return render(request, 'frequent_destination_saved_successfuly.html', context)
+        context['user_accounts'] = user_accounts
+        return render(request, 'frequent_destination_saved_successfuly.html',context)
 
     return render(request, 'error_page.html')  
 
@@ -181,6 +184,8 @@ def delete_frequent_destination(request, destination_id):
 
 def open_secondary_account(request):
     #change name to open_new_account
+    user_accounts = Account.objects.filter(user=request.user)
+
     currencies = settings.PRESET_CURRENCIES
     new_account_number = generate_account_number()
     
@@ -194,5 +199,5 @@ def open_secondary_account(request):
         )
         return render(request, 'open_secondary_account.html', {'new_account': new_account})
 
-    return render(request, 'select_currency.html', {'currencies': currencies})
+    return render(request, 'select_currency.html', {'currencies': currencies, 'user_accounts': user_accounts})
 

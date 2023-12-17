@@ -1,0 +1,32 @@
+.input {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+p {
+    color: green;
+}
+
+
+#save-frequent-button {
+    display: flex;
+   align-items: center;
+    padding: 10px 20px;
+    text-decoration: none;
+    background-color: rgb(112, 187, 248);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 10px auto;
+  
+  }
+  
+  #save-frequent-button:hover {
+    background-color: #6184a8;
+    border: 1px solid black;
+    color: black;
+    transition: background-color 0.3s;
+  }

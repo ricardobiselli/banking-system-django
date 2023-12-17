@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Frequent Destination Saved</title>
-    {% load static%}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}">
-
-</head>
-<body>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}" />
+  </head>
+  <body>
     <div class="main-container">
+      <h1>Transfer founds</h1>
+      <div class="bar">
+        {% if user_accounts %}
+          <p id="bar">Welcome! {{ user_accounts.first.user.username }}</p>
+        {% endif %}
 
-    <h2>Frequent Destination Saved</h2>
-    <p>{{ message }}</p>
-    <a href="{% url 'account_details' %}"> back to account details</a>
+        <a id="bar-button" href="{% url 'account_details' %}">Home</a>
+      </div>
+      <div class="sub-container">
+        <p>{{ message }}</p>
+        <a href="{% url 'account_details' %}" class="button">back to account details</a>
+      </div>
     </div>
-</body>
+  </body>
 </html>
-
-

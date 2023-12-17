@@ -4,6 +4,7 @@
     <title>Success</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/transaction_success.css' %}">
 </head>
 <body>
     <div class="main-container">
@@ -16,10 +17,10 @@
         {% csrf_token %}
         <input type="hidden" name="receiver_account_number" value="{{ receiver_account_number }}">
         <label for="nickname">save this account for future transfers with a Nickname:</label><br>
-        <input type="text" id="nickname" name="nickname"><br>
-        <input type="submit" value="Save as Frequent Destination">
+        <input type="text" id="nickname" name="nickname" class="input"><br>
+        <input type="submit" id="save-frequent-button" value="Save as Frequent Destination" class="button">
     </form>
-    <a href="{% url 'account_details' %}">Go back to Account Details</a>
+    <a class="button" href="{% url 'account_details' %}">Go back to Account Details</a>
     </div>
     </div>
 </body>

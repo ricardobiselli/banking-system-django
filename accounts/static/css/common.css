@@ -71,7 +71,7 @@ input[type="submit"] {
 }
 
 .button {
-  display: inline-block;
+  display: flex;
  align-items: center;
   padding: 10px 20px;
   text-decoration: none;
@@ -90,4 +90,32 @@ input[type="submit"] {
   border: 1px solid black;
   color: black;
   transition: background-color 0.3s;
+}
+
+.bar {
+  display: flex;
+  justify-content: space-between;
+  background-color: #8867fd;
+  color: #fff;
+  padding: 10px 10px;
+  margin:0;
+}
+
+#bar-button {
+  display: inline-block;
+  padding: 10px 20px;
+  text-decoration: none;
+  background-color: #483686;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+}
+
+#bar-button:hover {
+  background-color: #9a7eff;
+  color: black;
+  border: 1px solid black;
 }

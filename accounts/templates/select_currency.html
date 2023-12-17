@@ -1,26 +1,32 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Select Currency</title>
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}"/>
-</head>
-<body>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}" />
+  </head>
+  <body>
     <div class="main-container">
-    <h1>open new account</h1>
-    <form method="post">
+      <h1>open new account</h1>
+      <div class="bar">
+        {% if user_accounts %}
+          <p id="bar">Welcome! {{ user_accounts.first.user.username }}</p>
+        {% endif %}
+        <a id="bar-button" href="{% url 'account_details' %}">Home</a>
+      </div>
+      <form method="post">
         {% csrf_token %}
         <div class="sub-container">
-        <label for="currency">Choose Currency:</label>
-        <select id="currency" name="currency">
+          <label for="currency">Choose Currency:</label>
+          <select id="currency" name="currency">
             {% for currency_code, currency_name in currencies %}
-                <option value="{{ currency_code }}">{{ currency_name }}</option>
+              <option value="{{ currency_code }}">{{ currency_name }}</option>
             {% endfor %}
-        </select>
-        
-        <input type="submit" value="Create Account">
+          </select>
+
+          <input type="submit" value="Create Account" class="button" />
         </div>
-    </form>
+      </form>
     </div>
-</body>
+  </body>
 </html>
