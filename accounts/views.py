@@ -29,10 +29,8 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            #account_number = generate_account_number()
-            #Account.objects.create(user = user, account_number = account_number)
             login(request, user)  
-            return redirect('open_secondary_account') 
+            return redirect('open_new_account') 
     return render(request, 'register.html', {'form': form})
 
 @login_required
@@ -40,7 +38,6 @@ def account_details(request):
     user_accounts = Account.objects.filter(user=request.user)
     user_profile = UserProfile.objects.get(user=request.user)
     frequent_destinations = TransferDestination.objects.filter(user_profile=user_profile)
-    #balance = user_accounts.balance
     
     return render(request, 'account_details.html', {'user_accounts': user_accounts, 'frequent_destinations': frequent_destinations})
 
@@ -182,8 +179,7 @@ def delete_frequent_destination(request, destination_id):
 
     return redirect('account_details')
 
-def open_secondary_account(request):
-    #change name to open_new_account
+def open_new_account(request):
     user_accounts = Account.objects.filter(user=request.user)
 
     currencies = settings.PRESET_CURRENCIES
@@ -197,7 +193,7 @@ def open_secondary_account(request):
             account_number=new_account_number,
             currency=selected_currency
         )
-        return render(request, 'open_secondary_account.html', {'new_account': new_account})
+        return render(request, 'new_account_created.html', {'new_account': new_account})
 
     return render(request, 'select_currency.html', {'currencies': currencies, 'user_accounts': user_accounts})
 
