@@ -12,7 +12,8 @@
         {% if user_accounts %}
           <p id="bar">Welcome! {{ user_accounts.first.user.username }}</p>
         {% endif %}
-        <a id="bar-button" href="{% url 'account_details' %}">Home</a>
+        <a class="bar-button left-button" href="{% url 'account_details' %}">Home</a>
+        <a class="bar-button " href="{% url 'logout' %}">Logout</a>
       </div>
       <form method="post">
         {% csrf_token %}

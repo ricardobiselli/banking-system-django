@@ -10,23 +10,23 @@
   </head>
   <body>
     <div class="main-container">
-        <h1>Account Details</h1>
+      <h1>Account Details</h1>
       <div class="bar">
-      {% if user_accounts %}
-      
-        <p id="bar">Welcome! {{ user_accounts.first.user.username }}</p>
-      {% endif %}
+        {% if user_accounts %}
+          <p id="bar">Welcome! {{ user_accounts.first.user.username }}</p>
+        {% endif %}
 
-      <a id="bar-button" href="{% url 'logout' %}">Logout</a>
+        <a class="bar-button" href="{% url 'logout' %}">Logout</a>
+
       </div>
       <p id="subtitle">Your accounts:</p>
       <div class="accounts-container">
-       
         {% for account in user_accounts %}
           <div class="individual-account-container">
             <h2>{{ account.currency }} Account</h2>
             <p>Account number: {{ account.account_number }}</p>
             <p>Balance: {{ account.balance }}</p>
+            <a href="{% url 'transaction_history' account.id %}">Transaction History</a>
           </div>
         {% endfor %}
         <br />
@@ -39,17 +39,16 @@
         <h3>Frequent Destinations:</h3>
 
         {% if frequent_destinations %}
-            {% for destination in frequent_destinations %}
+          {% for destination in frequent_destinations %}
             <div class="individual-account-container">
-
-                <p>Destination Account Number: {{ destination.destination_account_number }}</p>
-                <p>Nickname: {{ destination.nickname }}</p>
-                <form action="{% url 'delete_frequent_destination' destination.id %}" method="post">
-                  {% csrf_token %}
-                  <input type="submit" value="Delete" />
-                </form>
+              <p>Destination Account Number: {{ destination.destination_account_number }}</p>
+              <p>Nickname: {{ destination.nickname }}</p>
+              <form action="{% url 'delete_frequent_destination' destination.id %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Delete" />
+              </form>
             </div>
-            {% endfor %}         
+          {% endfor %}
         {% else %}
           <p>No frequent destinations found.</p>
         {% endif %}

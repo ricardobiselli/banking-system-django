@@ -42,10 +42,11 @@ def account_details(request):
     return render(request, 'account_details.html', {'user_accounts': user_accounts, 'frequent_destinations': frequent_destinations})
 
 @login_required
-def transaction_history(request):
-    user_account = Account.objects.get(user=request.user)
+def transaction_history(request, account_id):
+    user_accounts = Account.objects.filter(user=request.user)
+    user_account = get_object_or_404(Account, pk=account_id, user=request.user)
     transactions = Transaction.objects.filter(sender=user_account) | Transaction.objects.filter(receiver=user_account)
-    return render(request, 'transaction_history.html', {'transactions': transactions})
+    return render(request, 'transaction_history.html', {'user_accounts': user_accounts,'transactions': transactions})
 
 def logout_view(request):
     logout(request)

@@ -7,13 +7,14 @@
   </head>
   <body>
     <div class="main-container">
-      <h1>Account Details</h1>
+      <h1>Transfer founds</h1>
       <div class="bar">
         {% if user_accounts %}
           <p id="bar">Welcome! {{ user_accounts.first.user.username }}</p>
         {% endif %}
 
-        <a id="bar-button" href="{% url 'account_details' %}">Home</a>
+        <a class="bar-button left-button" href="{% url 'account_details' %}">Home</a>
+        <a class="bar-button " href="{% url 'logout' %}">Logout</a>
       </div>
       <div class="sub-container">
         <form method="post" action="{% url 'make_transaction' %}">
@@ -27,8 +28,6 @@
           </select><br />
           <label for="receiver_account_number">Receiver's Account Number:</label><br />
           <input type="text" id="receiver_account_number" name="receiver_account_number" /><br />
-          <!-- <label for="nickname">Nickname:</label><br> -->
-          <!-- <input type="text" id="nickname" name="nickname"><br> -->
           <label for="amount">Amount:</label><br />
           <input type="text" id="amount" name="amount" /><br />
           <input type="submit" value="Submit" class="button" />

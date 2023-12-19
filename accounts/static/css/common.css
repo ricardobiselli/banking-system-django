@@ -30,6 +30,11 @@ h1 {
   color: #fff;
   padding: 30px 20px;
   margin: 0;
+  border-top-left-radius:10px ;
+  border-top-right-radius: 10px;
+  border-right: 1px solid rgb(6, 6, 17);
+  border-left: 1px solid rgb(6, 6, 17);
+  border-top: 1px solid rgb(6, 6, 17);
 }
 
 h2 {
@@ -99,9 +104,14 @@ input[type="submit"] {
   color: #fff;
   padding: 10px 10px;
   margin:0;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-right: 1px solid rgb(6, 6, 17);
+  border-left: 1px solid rgb(6, 6, 17);
+  border-bottom: 1px solid rgb(6, 6, 17);
 }
 
-#bar-button {
+.bar-button {
   display: inline-block;
   padding: 10px 20px;
   text-decoration: none;
@@ -114,8 +124,23 @@ input[type="submit"] {
 
 }
 
-#bar-button:hover {
+.bar-button:hover {
   background-color: #9a7eff;
   color: black;
   border: 1px solid black;
+}
+
+.left-button {
+  margin-left: auto; 
+  margin-right: 10px;
+}
+
+.sub-container form label,
+.sub-container form input,
+.sub-container form select {
+  margin-bottom: 15px;
+  width: 100%;
+}
+.sub-container form input[type="submit"] {
+  margin-top: 10px;
 }

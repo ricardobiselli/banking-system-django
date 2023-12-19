@@ -1,16 +1,33 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Transaction History</title>
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}">
-</head>
-<body>
-    <h2>Transaction History</h2>
-    <ul>
-        {% for transaction in transactions %}
-            <li>{{ transaction.sender.user.username }} sent {{ transaction.amount }} to {{ transaction.receiver.user.username }}</li>
-        {% endfor %}
-    </ul>
-</body>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}" />
+  </head>
+  <body>
+    <div class="main-container">
+      <h1>Transaction History</h1>
+      <div class="bar">
+        {% if user_accounts %}
+          <p id="bar">Welcome! {{ user_accounts.first.user.username }}</p>
+        {% endif %}
+
+        <a class="bar-button left-button" href="{% url 'account_details' %}">Home</a>
+        <a class="bar-button " href="{% url 'logout' %}">Logout</a>
+      </div>
+      <div class="sub-container">
+        <h2>Your transactions:</h2>
+        {% if transactions %}
+          <ul>
+            {% for transaction in transactions %}
+              <li>{{ transaction.sender.user.username }} sent {{transaction.sender.currency}} {{ transaction.amount }} to {{ transaction.receiver.user.username }} on {{ transaction.timestamp }}</li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p>No transactions found.</p>
+        {% endif %}
+      </div>
+    </div>
+  </body>
 </html>
