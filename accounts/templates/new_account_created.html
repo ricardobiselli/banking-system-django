@@ -1,23 +1,37 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Open Secondary account</title>
+  <head>
+    <title>Open New account</title>
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}">
-
-</head>
-<body>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}" />
+    <script src="{% static 'js/common.js' %}"></script>
+  </head>
+  <body>
     <div class="main-container">
+      <h1>open new account</h1>
+      <div class="bar">
+        {% if user_accounts %}
+          <p id="bar">Welcome! {{ user_accounts.first.user.username }}</p>
+        {% endif %}
+        <a class="bar-button left-button" href="{% url 'account_details' %}">Home</a>
+        <a class="bar-button" href="{% url 'logout' %}">Logout</a>
+      </div>
+      <div class="sub-container">
+        <h2>Your new account has been created!</h2>
+        <p>Account details:</p>
+        <ul>
+          <li>account number: {{ new_account.account_number }}</li>
+          <li>Balance: {{ new_account.balance }}</li>
 
-    <h1>New Secondary account created</h1>
-   <p> Account details </p>
-    <ul>
-        <li> account number: {{new_account.account_number}}</li>
-        <li> Balance: {{new_account.balance}}</li>
-
-        <li> currency: {{new_account.currency}}</li>
-    </ul>
-    <a href="{% url 'account_details' %}">Back to Account Details</a>
+          <li>currency: {{ new_account.currency }}</li>
+        </ul>
+        <p>returning to Home in 10 seconds...</p>
+        <div class="spinner" id="loading-spinner"></div>
+        <a href="{% url 'account_details' %}">return to Home now</a>
+      </div>
     </div>
-</body>
+    <script>
+      redirectAfterDelay("{% url 'account_details' %}", 10000)
+    </script>
+  </body>
 </html>

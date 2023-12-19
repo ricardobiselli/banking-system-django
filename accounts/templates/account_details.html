@@ -7,6 +7,7 @@
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/account_details.css' %}" />
+    <script src="{% static 'js/common.js' %}"></script>
   </head>
   <body>
     <div class="main-container">
@@ -18,18 +19,18 @@
 
         <a class="bar-button" href="{% url 'logout' %}">Logout</a>
       </div>
-      <p id="subtitle">Your accounts:</p>
+      <h3 id="subtitle">Your accounts:</h3>
       <div class="accounts-container">
         {% for account in user_accounts %}
           <div class="individual-account-container">
             <h2>{{ account.currency }} Account</h2>
             <p>Account number: {{ account.account_number }}</p>
-            <p>Balance: {{ account.balance }}</p>
+            <p id="account-balance">Balance: {{ account.balance }}</p>
             <a id="transaction-button" href="{% url 'transaction_history' account.id %}">Transaction History</a>
 
             <form action="{% url 'delete_account' account.id %}" method="post">
               {% csrf_token %}
-              <a  id="delete-button" href="{% url 'delete_account' account.id %}">Delete account</a>
+              <a id="delete-button" href="{% url 'delete_account' account.id %}">Delete account</a>
             </form>
           </div>
         {% endfor %}
@@ -40,13 +41,14 @@
         </div>
       </div>
       <div class="accounts-container">
-        <h3>Frequent Destinations:</h3>
+        <h3 id="subtitle">Frequent Recipients:</h3>
 
         {% if frequent_destinations %}
           {% for destination in frequent_destinations %}
             <div class="individual-account-container">
-              <p>Destination Account Number: {{ destination.destination_account_number }}</p>
               <p>Nickname: {{ destination.nickname }}</p>
+              <p>Account Number: {{ destination.destination_account_number }}</p>
+              <p>currency: {{destination.currency}}<!--no está en models-->
               <form action="{% url 'delete_frequent_destination' destination.id %}" method="post">
                 {% csrf_token %}
                 <input type="submit" value="Delete" />

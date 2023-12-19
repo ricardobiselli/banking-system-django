@@ -23,7 +23,7 @@
           <label for="sender_account">Sender's Account:</label><br />
           <select id="sender_account" name="sender_account">
             {% for account in user_accounts %}
-              <option value="{{ account.account_number }}">{{ account.account_number }} ({{ account.currency }})</option>
+              <option value="{{ account.account_number }}">{{ account.account_number }} ({{ account.currency }} {{account.balance}})</option>
             {% endfor %}
           </select><br />
           <label for="receiver_account_number">Receiver's Account Number:</label><br />

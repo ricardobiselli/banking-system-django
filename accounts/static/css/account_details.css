@@ -86,8 +86,8 @@ h3 {
 
 }
 
-#delete-button:hover{
-    background-color: #ff0000;
+#transaction-button:hover {
+    background-color: #63b3f5;
     border: 1px solid black;
     color: black;
     transition: background-color 0.3s;
@@ -111,9 +111,10 @@ h3 {
 
 }
 
-#transaction-button:hover {
-    background-color: #6184a8;
+#delete-button:hover{
+    background-color: #ec7676;
     border: 1px solid black;
     color: black;
     transition: background-color 0.3s;
 }
+

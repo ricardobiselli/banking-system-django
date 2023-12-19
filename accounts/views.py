@@ -198,11 +198,16 @@ def open_new_account(request):
 
     return render(request, 'select_currency.html', {'currencies': currencies, 'user_accounts': user_accounts})
 
+@login_required
 def delete_account(request, account_id):
     account = get_object_or_404(Account, pk=account_id)
 
     if account.user != request.user:
         pass
+    
+    if account.balance.amount > 0:
+        return render(request, 'delete_account_error.html', {'account': account})
+        
 
     account.delete()
 
