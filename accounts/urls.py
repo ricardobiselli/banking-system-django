@@ -13,6 +13,7 @@ urlpatterns = [
     path('save_frequent_destination_prompt/', views.save_frequent_destination_prompt, name='save_frequent_destination_prompt'),
     path('delete_frequent_destination/<int:destination_id>/', views.delete_frequent_destination, name='delete_frequent_destination'),
     path('open_new_account', views.open_new_account, name='open_new_account'),
+    path('delete_account/<int:account_id>/', views.delete_account, name='delete_account'),
     
 
 ]

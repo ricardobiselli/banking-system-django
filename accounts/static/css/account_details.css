@@ -2,7 +2,7 @@ h1 {
     background-color: #6439FF;
     color: #fff;
     padding: 30px 20px;
-    margin:0;
+    margin: 0;
 }
 
 #subtitle {
@@ -12,7 +12,8 @@ h1 {
 
 
 
-.accounts-container, .frequent-destinations-container {
+.accounts-container,
+.frequent-destinations-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -32,6 +33,7 @@ h1 {
 .individual-account-container:hover {
     background-color: #c9baff;
     transition: background-color 0.3s;
+    border-radius: 5px;
 }
 
 h3 {
@@ -63,4 +65,55 @@ h3 {
     color: black;
     border: 1px solid black;
 
+}
+
+
+#transaction-button {
+
+
+
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    text-decoration: none;
+    background-color: #91c9f7;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 10px auto;
+
+}
+
+#delete-button:hover{
+    background-color: #ff0000;
+    border: 1px solid black;
+    color: black;
+    transition: background-color 0.3s;
+}
+
+#delete-button {
+
+
+
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    text-decoration: none;
+    background-color: #cac9ca;
+    color: rgb(75, 75, 75);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 10px auto;
+
+}
+
+#transaction-button:hover {
+    background-color: #6184a8;
+    border: 1px solid black;
+    color: black;
+    transition: background-color 0.3s;
 }

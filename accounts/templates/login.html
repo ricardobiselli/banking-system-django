@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Login</title>
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}"/>
-</head>
-<body>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}" />
+  </head>
+  <body>
     <div class="main-container">
-    <h1>Login</h1>
-    <div class="sub-container">
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" id="login-button" class="button">Login</button>
-    </form>
-    <a href="{% url 'register' %}">Dont have an account? Register!</a>
+      <h1>Bank system in django</h1>
+      <div class="bar">
+        <p id="bar">Welcome!</p>
+        <!-- <a class="bar-button" href="{% url 'logout' %}">Logout</a> -->
+      </div>
+      <div class="sub-container">
+        <h2>Please enter your username and password:</h2>
+        <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" id="login-button" class="button">Login</button>
+        </form>
+        <a href="{% url 'register' %}">Dont have an account? Register!</a>
+      </div>
     </div>
-    </div>
-</body>
+  </body>
 </html>

@@ -17,7 +17,6 @@
         {% endif %}
 
         <a class="bar-button" href="{% url 'logout' %}">Logout</a>
-
       </div>
       <p id="subtitle">Your accounts:</p>
       <div class="accounts-container">
@@ -26,7 +25,12 @@
             <h2>{{ account.currency }} Account</h2>
             <p>Account number: {{ account.account_number }}</p>
             <p>Balance: {{ account.balance }}</p>
-            <a href="{% url 'transaction_history' account.id %}">Transaction History</a>
+            <a id="transaction-button" href="{% url 'transaction_history' account.id %}">Transaction History</a>
+
+            <form action="{% url 'delete_account' account.id %}" method="post">
+              {% csrf_token %}
+              <a  id="delete-button" href="{% url 'delete_account' account.id %}">Delete account</a>
+            </form>
           </div>
         {% endfor %}
         <br />
