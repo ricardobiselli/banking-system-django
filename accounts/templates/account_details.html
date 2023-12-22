@@ -1,25 +1,19 @@
-<!-- account_details.html -->
-
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Account Details</title>
-    {% load static %}
+  {% extends 'base.html' %}
+
+  {% block maintitle %}
+    Account Details
+  {% endblock %}
+  {% load static %}
+  {% block extrastatic %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/account_details.css' %}" />
     <script src="{% static 'js/common.js' %}"></script>
-  </head>
-  <body>
-    <div class="main-container">
-      <h1>Account Details</h1>
-      <div class="bar">
-        {% if user_accounts %}
-          <p id="bar">Welcome! {{ user_accounts.first.user.username }}</p>
-        {% endif %}
+  {% endblock %}
 
-        <a class="bar-button" href="{% url 'logout' %}">Logout</a>
-      </div>
-      <h3 id="subtitle">Your accounts:</h3>
+  {% block subtitle%} Your accounts:{% endblock%}
+  {%block subcontainer%}
       <div class="accounts-container">
         {% for account in user_accounts %}
           <div class="individual-account-container">
@@ -34,7 +28,6 @@
             </form>
           </div>
         {% endfor %}
-        <br />
         <div class="buttons-container">
           <a href="{% url 'make_transaction' %}">Transfer to another account</a><br />
           <a href="{% url 'open_new_account' %}">Open a new account</a><br />
@@ -48,7 +41,7 @@
             <div class="individual-account-container">
               <p>Nickname: {{ destination.nickname }}</p>
               <p>Account Number: {{ destination.destination_account_number }}</p>
-              <p>currency: {{destination.currency}}<!--no está en models-->
+              <p>currency: {{destination.currency}}
               <form action="{% url 'delete_frequent_destination' destination.id %}" method="post">
                 {% csrf_token %}
                 <input type="submit" value="Delete" />
@@ -59,6 +52,6 @@
           <p>No frequent destinations found.</p>
         {% endif %}
       </div>
-    </div>
+  {%endblock%}
   </body>
 </html>

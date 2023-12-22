@@ -36,6 +36,11 @@ class TransferDestination(models.Model):
 
     def __str__(self):
         return f"{self.destination_account_number} ({self.nickname})"
+    
+"""class CustomUser(AbstractUser):
+    email = models.EmailField(unique=True)
+    address = models.CharField(max_length=100)
+    phone_number = models.CharField(max_length=15)"""
 
 def save_to_frequent_transfer(user_profile, destination_account_number):
     transfer_dest = TransferDestination(

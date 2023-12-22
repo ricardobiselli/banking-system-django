@@ -7,7 +7,7 @@ from .models import Account, Transaction, UserProfile, TransferDestination, User
 from django.db import transaction
 from django.db.models.signals import post_save
 from django.conf import settings
-from decimal import Decimal
+from decimal import Decimal, InvalidOperation
 from django.dispatch import receiver
 import http.client
 import json
@@ -96,7 +96,7 @@ def make_transaction(request):
 
             try:
                 converted_amount = Decimal(amount) * exchange_rate
-            except Decimal.InvalidOperation:
+            except (InvalidOperation, TypeError, ValueError):
                 return render(request, 'make_transaction.html', {'error_message': 'Invalid amount or conversion.'})
 
             with transaction.atomic():
@@ -104,10 +104,11 @@ def make_transaction(request):
 
                 sender_account_balance = sender_account.balance
                 amount_money = Money(amount, sender_account_balance.currency)
-                
-                if sender_account_balance < amount_money:
+                if amount_money.amount < Decimal('0.1'):
+                    return render(request, 'make_transaction.html', {'error_message': 'Invalid amount'})
+                elif sender_account_balance < amount_money:
                     return render(request, 'make_transaction.html', {'error_message': 'Insufficient balance.'})
-
+                ################error messages working, empty dropdown menu after failed transaction
                 sender_account.balance -= amount_money
                 receiver_account.balance += Money(converted_amount, receiver_account.balance.currency)
 

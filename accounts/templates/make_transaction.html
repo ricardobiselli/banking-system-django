@@ -14,8 +14,9 @@
         {% endif %}
 
         <a class="bar-button left-button" href="{% url 'account_details' %}">Home</a>
-        <a class="bar-button " href="{% url 'logout' %}">Logout</a>
+        <a class="bar-button" href="{% url 'logout' %}">Logout</a>
       </div>
+
       <div class="sub-container">
         <form method="post" action="{% url 'make_transaction' %}">
           {% csrf_token %}
@@ -23,15 +24,21 @@
           <label for="sender_account">Sender's Account:</label><br />
           <select id="sender_account" name="sender_account">
             {% for account in user_accounts %}
-              <option value="{{ account.account_number }}">{{ account.account_number }} ({{ account.currency }} {{account.balance}})</option>
+              <option value="{{ account.account_number }}">{{ account.account_number }} ({{ account.currency }} {{ account.balance }})</option>
             {% endfor %}
           </select><br />
+          <span id="currentBalance"></span><br />
           <label for="receiver_account_number">Receiver's Account Number:</label><br />
           <input type="text" id="receiver_account_number" name="receiver_account_number" /><br />
           <label for="amount">Amount:</label><br />
           <input type="text" id="amount" name="amount" /><br />
           <input type="submit" value="Submit" class="button" />
         </form>
+        {% if error_message %}
+          <script>
+            alert('{{ error_message }}')
+          </script>
+        {% endif %}
       </div>
     </div>
   </body>
