@@ -23,4 +23,6 @@ Including another URLconf
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
+    path('users/',include('users.urls')),
+    path('account_create_and_delete/', include('account_create_and_delete.urls',namespace='account_create_and_delete')),
 ]
