@@ -39,8 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'djmoney',
-    'users',
-    'account_create_and_delete',
 ]
 
 MIDDLEWARE = [

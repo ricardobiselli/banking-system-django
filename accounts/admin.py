@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Account, TransferDestination
+from accounts.models import Account
+from accounts.models import TransferDestination
 
 class AccountAdmin(admin.ModelAdmin):
     list_display = ('user', 'account_number',) 

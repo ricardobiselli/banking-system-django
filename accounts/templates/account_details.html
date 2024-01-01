@@ -9,7 +9,7 @@
 
     {% load static %}
     {% block extrastatic %}
-      <link rel="stylesheet" type="text/css" href="{% static 'common/css/common.css' %}" />
+      <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}" />
       <link rel="stylesheet" type="text/css" href="{% static 'css/account_details.css' %}" />
 
       <script src="{% static 'common/js/common.js' %}"></script>
@@ -29,13 +29,13 @@
 
             <form action="{% url 'delete_account' account.id %}" method="post">
               {% csrf_token %}
-              <a id="delete-button" href="{% url 'account_create_and_delete:delete_account' account.id %}">Delete account</a>
+              <a id="delete-button" href="{% url 'delete_account' account.id %}">Delete account</a>
             </form>
           </div>
         {% endfor %}
         <div class="buttons-container">
           <a href="{% url 'make_transaction' %}">Transfer to another account</a><br />
-          <a href="{% url 'account_create_and_delete:open_new_account' %}">Open a new account</a><br />
+          <a href="{% url 'open_new_account' %}">Open a new account</a><br />
         </div>
       </div>
       <div class="accounts-container">

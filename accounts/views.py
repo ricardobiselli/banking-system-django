@@ -1,16 +1,38 @@
 from djmoney.money import Money
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Account, Transaction, UserProfile, TransferDestination, UserProfile
+from accounts.models import Transaction, UserProfile, TransferDestination, UserProfile
 from django.db import transaction
 from django.db.models.signals import post_save
 from decimal import Decimal, InvalidOperation
 from django.dispatch import receiver
 import http.client
 import json
-
+import random
+from .models import Account
+from django.conf import settings
 
 # milena mile123123 lucia lucia123123
+
+
+from django.contrib.auth import login, logout
+from django.contrib.auth.forms import UserCreationForm
+
+
+def register(request):
+    form = UserCreationForm()
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('open_new_account')
+    return render(request, 'register.html', {'form': form})
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
 
 @receiver(post_save, sender='auth.User')
 def create_user_profile(sender, instance, created, **kwargs):
@@ -178,3 +200,44 @@ def delete_frequent_destination(request, destination_id):
 
     return redirect('account_details')
 
+###############
+
+
+
+
+
+def generate_account_number():
+    return str(random.randint(1000000000, 9999999999))
+
+def open_new_account(request):
+    user_accounts = Account.objects.filter(user=request.user)
+
+    currencies = settings.PRESET_CURRENCIES
+    new_account_number = generate_account_number()
+
+    if request.method == 'POST':
+        selected_currency = request.POST.get('currency')
+        new_account = Account.objects.create(
+            user=request.user,
+            balance=0.00,
+            account_number=new_account_number,
+            currency=selected_currency
+        )
+        return render(request, 'new_account_created.html', {'new_account': new_account})
+
+    return render(request, 'select_currency.html', {'currencies': currencies, 'user_accounts': user_accounts})
+
+
+@login_required
+def delete_account(request, account_id):
+    account = get_object_or_404(Account, pk=account_id)
+
+    if account.user != request.user:
+        pass
+
+    if account.balance.amount > 0:
+        return render(request, 'delete_account_error.html', {'account': account})
+
+    account.delete()
+
+    return redirect('account_details')

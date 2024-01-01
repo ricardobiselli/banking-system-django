@@ -1,12 +1,17 @@
 from django.db import models
 from django.contrib.auth.models import User
-from account_create_and_delete.models import Account
-
-#class UserProfile(models.Model):
-#    user = models.OneToOneField(User, on_delete=models.CASCADE)
+from djmoney.models.fields import MoneyField
+#from . models import Account
 
 
-
+class Account(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    balance = MoneyField(max_digits=10, decimal_places=2, default=0.00, default_currency='USD')
+    account_number = models.CharField(max_length=10, unique=True)  
+    currency = models.CharField(max_length=3)
+    
+    def __str__(self):
+        return f"{self.user.username}'s account"
 
 class Transaction(models.Model):
     sender = models.ForeignKey(Account, related_name='sent_transactions', on_delete=models.CASCADE)
@@ -14,9 +19,9 @@ class Transaction(models.Model):
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     timestamp = models.DateTimeField(auto_now_add=True)
     
-    
     def __str__(self):
         return f"{self.sender.user.username} sent {self.amount} to {self.receiver.user.username} on {self.timestamp}"
+
     
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -35,3 +40,5 @@ def save_to_frequent_transfer(user_profile, destination_account_number):
         destination_account_number=destination_account_number,
     )
     transfer_dest.save()
+
+
