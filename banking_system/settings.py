@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -39,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'djmoney',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -130,7 +130,7 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/accounts/account/'
-LOGOUT_REDIRECT_URL = '/users/login'
+LOGOUT_REDIRECT_URL = '/accounts/login'
 
 PRESET_CURRENCIES = [
     ('USD', 'US Dollar'),

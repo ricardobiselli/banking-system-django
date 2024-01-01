@@ -1,7 +1,7 @@
 from djmoney.money import Money
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from accounts.models import Transaction, UserProfile, TransferDestination, UserProfile
+from accounts.models import Transaction, TransferDestination
 from django.db import transaction
 from django.db.models.signals import post_save
 from decimal import Decimal, InvalidOperation
@@ -11,6 +11,7 @@ import json
 import random
 from .models import Account
 from django.conf import settings
+from users.models import UserProfile
 
 # milena mile123123 lucia lucia123123
 
