@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'accounts',
     'djmoney',
     'users',
+    'transactions',
+
 ]
 
 MIDDLEWARE = [
@@ -58,7 +60,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [BASE_DIR / 'users' / 'templates',
                  BASE_DIR / 'accounts' / 'templates',
-                 BASE_DIR / 'accounts_create_and_delete' / 'templates'],
+                 BASE_DIR / 'transactions' / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -130,7 +132,7 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/accounts/account/'
-LOGOUT_REDIRECT_URL = '/accounts/login'
+LOGOUT_REDIRECT_URL = '/users/login'
 
 PRESET_CURRENCIES = [
     ('USD', 'US Dollar'),

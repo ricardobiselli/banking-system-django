@@ -1,33 +1,19 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Open New account</title>
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'common/css/common.css' %}" />
-  </head>
-  <body>
-    <div class="main-container">
-      <h1>open new account</h1>
-      <div class="bar">
-        {% if user_accounts %}
-          <p id="bar">Welcome! {{ user_accounts.first.user.username }}</p>
-        {% endif %}
-        <a class="bar-button left-button" href="{% url 'account_details' %}">Home</a>
-        <a class="bar-button " href="{% url 'logout' %}">Logout</a>
-      </div>
-      <form method="post">
-        {% csrf_token %}
-        <div class="sub-container">
-          <label for="currency">Choose Currency:</label>
-          <select id="currency" name="currency">
-            {% for currency_code, currency_name in currencies %}
-              <option value="{{ currency_code }}">{{ currency_name }}</option>
-            {% endfor %}
-          </select>
-
-          <input type="submit" value="Create Account" class="button" />
-        </div>
-      </form>
-    </div>
-  </body>
-</html>
+<title>Open New account</title>
+{% extends 'base.html' %}
+{% block maintitle %}
+  Open new account
+{% endblock %}
+{% block subtitle %}
+  Choose Currency:
+{% endblock %}
+{% block subcontainer %}
+  <form method="post">
+    {% csrf_token %}
+    <select id="currency" name="currency">
+      {% for currency_code, currency_name in currencies %}
+        <option value="{{ currency_code }}">{{ currency_name }}</option>
+      {% endfor %}
+    </select>
+    <input type="submit" value="Create Account" class="button" />
+  </form>
+{% endblock %}

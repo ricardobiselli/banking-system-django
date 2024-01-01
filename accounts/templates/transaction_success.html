@@ -1,27 +1,32 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Success</title>
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'common/css/common.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/transaction_success.css' %}">
-</head>
-<body>
-    <div class="main-container">
+{% extends 'base.html' %}
+<title>Success</title>
+{% load static %}
+{% block static_container %}
+  <link rel="stylesheet" type="text/css" href="{% static 'common/css/common.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/transaction_success.css' %}" />
 
-    <h1>Transfer founds</h1>
-    <div class="sub-container">
+  <script src="{% static 'common/js/common.js' %}"></script>
+{% endblock %}
 
-    <p>Your transaction was successful!</p>
-    <form method="post" action="{% url 'save_frequent_destination_prompt' %}">
-        {% csrf_token %}
-        <input type="hidden" name="receiver_account_number" value="{{ receiver_account_number }}">
-        <label for="nickname">save this account for future transfers with a Nickname:</label><br>
-        <input type="text" id="nickname" name="nickname" class="input"><br>
-        <input type="submit" id="save-frequent-button" value="Save as Frequent Destination" class="button">
-    </form>
-    <a class="button" href="{% url 'account_details' %}">Go back to Account Details</a>
-    </div>
-    </div>
-</body>
-</html>
+{% block maintitle %}
+  Transfer founds
+{% endblock %}
+
+{% block subtitle %}
+  Your transaction was successful!
+{% endblock %}
+{% block subcontainer %}
+  <form method="post" action="{% url 'save_frequent_destination_prompt' %}">
+    {% csrf_token %}
+    <input type="hidden" name="receiver_account_number" value="{{ receiver_account_number }}" />
+    <label for="nickname">save this account for future transfers with a Nickname:</label><br />
+    <input type="text" id="nickname" name="nickname" class="input" /><br />
+    <input type="submit" id="save-frequent-button" value="Save as Frequent Destination" class="button" />
+  </form>
+  <p>returning to Home in 30 seconds...</p>
+  <div class="spinner" id="loading-spinner"></div>
+  <a href="{% url 'account_details' %}">return to Home now</a>
+  <script>
+    redirectAfterDelay("{% url 'account_details' %}", 30000)
+  </script>
+{% endblock %}

@@ -2,17 +2,34 @@
 <html>
   <head>
     <title>Login</title>
+    {% extends 'base.html' %}
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'common/css/common.css' %}" />
+    {% block static_container %}
+      <link rel="stylesheet" type="text/css" href="{% static 'common/css/common.css' %}" />
+      <link rel="stylesheet" type="text/css" href="{% static 'css/login-styles.css' %}" />
+      <script src="{% static 'common/js/common.js' %}"></script>
+    {% endblock %}
   </head>
   <body>
     <div class="main-container">
-      <h1>Bank system in django</h1>
-      <div class="bar">
-        <p id="bar">Welcome!</p>
-        <!-- <a class="bar-button" href="{% url 'logout' %}">Logout</a> -->
-      </div>
+      <h1>
+        {% block maintitle %}
+          Welcome! Multi-currency banking system in Django
+        {% endblock %}
+      </h1>
+      {% block navbar %}
+        <div class="bar">
+            <p id="bar">
+           username: testuser password: test123123</p>
+
+          <a class="bar-button left-button" href="{% url 'account_details' %}">Home</a>
+          <a class="bar-button" href="{% url 'logout' %}">Logout</a>
+        </div>
+      {% endblock %}
+      {% block subtitle %}
+      {% endblock %}
       <div class="sub-container">
+        {% block subcontainer %}
         <h2>Please enter your username and password:</h2>
         <form method="post">
           {% csrf_token %}
@@ -20,10 +37,8 @@
           <button type="submit" id="login-button" class="button">Login</button>
         </form>
         <a href="{% url 'register' %}">Dont have an account? Register!</a>
+        {% endblock %}
       </div>
     </div>
   </body>
-  <footer>
-    FX exchange rates provided by <a href="https://fxratesapi.com">https://fxratesapi.com</a>
-  </footer>
 </html>

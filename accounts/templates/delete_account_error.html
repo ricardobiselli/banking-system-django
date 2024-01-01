@@ -1,38 +1,30 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>delete account error</title>
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'common/css/common.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'css/delete_account_error.css' %}" />
-    <script src="{% static 'common/js/common.js' %}"></script>
-  </head>
-  <body>
-    <div class="main-container">
-      <h1>ERROR!</h1>
-      <div class="bar">
-        {% if user_accounts %}
-          <p id="bar">Welcome! {{ user_accounts.first.user.username }}</p>
-        {% endif %}
+<title>delete account error</title>
+{% extends 'base.html' %}
+{% load static %}
+{% block static_container %}
+  <link rel="stylesheet" type="text/css" href="{% static 'common/css/common.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/delete_account_error.css' %}" />
+  <script src="{% static 'common/js/common.js' %}"></script>
+{% endblock %}
 
-        <a class="bar-button left-button" href="{% url 'account_details' %}">Home</a>
-        <a class="bar-button" href="{% url 'logout' %}">Logout</a>
-      </div>
-    </div>
-    <div class="sub-container">
-      <h2>You can't delete your account because you have a positive balance!</h2>
-      <p>please withdraw or transfer all your funds to another account, your current balance is:</p>
-      <ul>
-        <li id="positive-balance">Balance: {{ account.balance }}</li>
-        <li>account number: {{ account.account_number }}</li>
-        <li>currency: {{ account.currency }}</li>
-      </ul>
-      <p>returning to Home in 10 seconds...</p>
-      <div class="spinner" id="loading-spinner"></div>
-      <a href="{% url 'account_details' %}">return to Home now</a>
-    </div>
-    <script>
-      redirectAfterDelay("{% url 'account_details' %}", 10000)
-    </script>
-  </body>
-</html>
+{% block maintitle %}
+  ERROR!
+{% endblock %}
+{% block subtitle %}
+  warning!
+{% endblock %}
+{% block subcontainer %}
+  <h2>You can't delete your account because you have a positive balance!</h2>
+  <p>please withdraw or transfer all your funds to another account, your current balance is:</p>
+  <ul>
+    <li id="positive-balance">Balance: {{ account.balance }}</li>
+    <li>account number: {{ account.account_number }}</li>
+    <li>currency: {{ account.currency }}</li>
+  </ul>
+  <p>returning to Home in 10 seconds...</p>
+  <div class="spinner" id="loading-spinner"></div>
+  <a href="{% url 'account_details' %}">return to Home now</a>
+  <script>
+    redirectAfterDelay("{% url 'account_details' %}", 10000)
+  </script>
+{% endblock %}

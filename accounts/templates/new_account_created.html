@@ -2,36 +2,30 @@
 <html>
   <head>
     <title>Open New account</title>
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'common/css/common.css' %}" />
-    <script src="{% static 'js/common.js' %}"></script>
+    {% extends 'base.html' %}
   </head>
   <body>
-    <div class="main-container">
-      <h1>open new account</h1>
-      <div class="bar">
-        {% if user_accounts %}
-          <p id="bar">Welcome! {{ user_accounts.first.user.username }}</p>
-        {% endif %}
-        <a class="bar-button left-button" href="{% url 'account_details' %}">Home</a>
-        <a class="bar-button" href="{% url 'logout' %}">Logout</a>
-      </div>
-      <div class="sub-container">
-        <h2>Your new account has been created!</h2>
-        <p>Account details:</p>
-        <ul>
-          <li>account number: {{ new_account.account_number }}</li>
-          <li>Balance: {{ new_account.balance }}</li>
+    {% block maintitle %}
+      Open new account
+    {% endblock %}
 
-          <li>currency: {{ new_account.currency }}</li>
-        </ul>
-        <p>returning to Home in 10 seconds...</p>
-        <div class="spinner" id="loading-spinner"></div>
-        <a href="{% url 'account_details' %}">return to Home now</a>
-      </div>
-    </div>
-    <script>
-      redirectAfterDelay("{% url 'account_details' %}", 10000)
-    </script>
+    {% block subtitle %}
+      Your new account has been created!
+    {% endblock %}
+    {% block subcontainer %}
+      <p>Account details:</p>
+      <ul>
+        <li>account number: {{ new_account.account_number }}</li>
+        <li>Balance: {{ new_account.balance }}</li>
+
+        <li>currency: {{ new_account.currency }}</li>
+      </ul>
+      <p>returning to Home in 10 seconds...</p>
+      <div class="spinner" id="loading-spinner"></div>
+      <a href="{% url 'account_details' %}">return to Home now</a>
+      <script>
+        redirectAfterDelay("{% url 'account_details' %}", 10000)
+      </script>
+    {% endblock %}
   </body>
 </html>

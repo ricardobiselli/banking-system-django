@@ -5,7 +5,7 @@ body {
     background-color: #f4f4f4;
   }
   
-  .main-container {
+  .main-container, .footer {
     max-width: 800px;
     margin-bottom: 30px;
     margin: 0 auto;
@@ -13,7 +13,7 @@ body {
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
-  
+
   .sub-container {
     margin: 20px auto;
     display: flex;
@@ -43,6 +43,12 @@ body {
     margin-bottom: 10px;
   }
   
+#subtitle {
+    display: flex;
+    justify-content: center;
+
+  }
+
   p {
     margin-bottom: 10px;
   }
@@ -170,6 +176,19 @@ body {
     animation: spin 1s linear infinite;
   }
   
-  .footer p{
-    background-color: black;
+  .footer-container {
+    text-align: center; /* Center-align the content inside the footer */
   }
+  
+  .footer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #bccaf3;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .footer p {
+    margin: 0; /* Remove default margin */
+  }
+  
