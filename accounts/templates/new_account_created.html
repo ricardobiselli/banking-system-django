@@ -1,31 +1,23 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Open New account</title>
-    {% extends 'base.html' %}
-  </head>
-  <body>
-    {% block maintitle %}
-      Open new account
-    {% endblock %}
+<title>Open New account</title>
+{% extends 'base.html' %}
+{% block maintitle %}
+  Open new account
+{% endblock %}
+{% block subtitle %}
+  Your new account has been created!
+{% endblock %}
+{% block subcontainer %}
+  <p>Account details:</p>
+  <ul>
+    <li>account number: {{ new_account.account_number }}</li>
+    <li>Balance: {{ new_account.balance }}</li>
 
-    {% block subtitle %}
-      Your new account has been created!
-    {% endblock %}
-    {% block subcontainer %}
-      <p>Account details:</p>
-      <ul>
-        <li>account number: {{ new_account.account_number }}</li>
-        <li>Balance: {{ new_account.balance }}</li>
-
-        <li>currency: {{ new_account.currency }}</li>
-      </ul>
-      <p>returning to Home in 10 seconds...</p>
-      <div class="spinner" id="loading-spinner"></div>
-      <a href="{% url 'account_details' %}">return to Home now</a>
-      <script>
-        redirectAfterDelay("{% url 'account_details' %}", 10000)
-      </script>
-    {% endblock %}
-  </body>
-</html>
+    <li>currency: {{ new_account.currency }}</li>
+  </ul>
+  <p>returning to Home in 10 seconds...</p>
+  <div class="spinner" id="loading-spinner"></div>
+  <a href="{% url 'account_details' %}">return to Home now</a>
+  <script>
+    redirectAfterDelay("{% url 'account_details' %}", 10000)
+  </script>
+{% endblock %}

@@ -20,10 +20,9 @@ def get_exchange_rate(base_currency, target_currency):
         data = res.read()
         exchange_rates = json.loads(data)
         rates = exchange_rates["rates"]
-        # Default to 1 if target currency not found
         return Decimal(rates.get(target_currency, 1))
     else:
-        return Decimal(1)  # Default exchange rate of 1 if API request fails
+        return Decimal(1)  
 
     conn.close()
 
@@ -117,17 +116,15 @@ def save_frequent_destination_prompt(request):
         ).exists()
 
         if not existing_destination:
-            # Fetching associated account's currency
             try:
                 recipient_account = Account.objects.get(account_number=receiver_account_number)
                 currency = recipient_account.currency
 
-                # Creating TransferDestination with currency info
                 TransferDestination.objects.create(
                     user_profile=user_profile,
                     destination_account_number=receiver_account_number,
                     nickname=nickname,
-                    currency=currency  # Adding currency information
+                    currency=currency  
                 )
                 context = {'message': 'Frequent destination saved successfully.'}
             except Account.DoesNotExist:

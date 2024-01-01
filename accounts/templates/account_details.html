@@ -46,7 +46,7 @@
           <p>currency: {{ destination.currency }}</p>
           <form action="{% url 'delete_frequent_destination' destination.id %}" method="post">
             {% csrf_token %}
-            <input type="submit" value="Delete" />
+            <input id="delete-button" type="submit" value="Delete" />
           </form>
         </div>
       {% endfor %}
