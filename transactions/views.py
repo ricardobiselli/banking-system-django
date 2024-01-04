@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from accounts.models import Account
 from users.models import UserProfile
@@ -8,6 +8,7 @@ from django.db import transaction
 from decimal import Decimal, InvalidOperation
 import http.client
 import json
+from django.urls import reverse
 
 
 
@@ -102,9 +103,9 @@ def make_transaction(request):
 
     return render(request, 'make_transaction.html', {'user_accounts': user_accounts})
 
-
 def save_frequent_destination_prompt(request):
     user_accounts = Account.objects.filter(user=request.user)
+    
     if request.method == 'POST':
         receiver_account_number = request.POST.get('receiver_account_number')
         nickname = request.POST.get('nickname')
@@ -134,8 +135,9 @@ def save_frequent_destination_prompt(request):
 
         context['user_accounts'] = user_accounts
         return render(request, 'frequent_destination_saved_successfuly.html', context)
+    
+    return HttpResponseRedirect(reverse('make_transaction'))
 
-    return render(request, 'error_page.html')
 
 
 
@@ -156,5 +158,5 @@ def transaction_history(request, account_id):
     user_accounts = Account.objects.filter(user=request.user)
     user_account = get_object_or_404(Account, pk=account_id, user=request.user)
     transactions = Transaction.objects.filter(
-        sender=user_account) | Transaction.objects.filter(receiver=user_account)
+        sender=user_account) | Transaction.objects.filter(receiver=user_account).order_by('-timestamp')
     return render(request, 'transaction_history.html', {'user_accounts': user_accounts, 'transactions': transactions})
