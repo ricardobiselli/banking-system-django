@@ -47,19 +47,19 @@ def make_transaction(request):
             receiver_account = Account.objects.get(
                 account_number=receiver_account_number)
         except Account.DoesNotExist:
-            return render(request, 'make_transaction.html', {'error_message': 'Receiver account not found'})
+            return render(request, 'make_transaction.html', {'error_message': 'Receiver account not found','user_accounts': user_accounts})
 
         if sender_account.currency != receiver_account.currency:
             exchange_rate = get_exchange_rate(
                 sender_account.currency, receiver_account.currency)
 
             if exchange_rate is None:
-                return render(request, 'make_transaction.html', {'error_message': 'Failed to fetch exchange rates.'})
+                return render(request, 'make_transaction.html', {'error_message': 'Failed to fetch exchange rates.','user_accounts': user_accounts})
 
             try:
                 converted_amount = Decimal(amount) * exchange_rate
             except (InvalidOperation, TypeError, ValueError):
-                return render(request, 'make_transaction.html', {'error_message': 'Invalid amount or conversion.'})
+                return render(request, 'make_transaction.html', {'error_message': 'Invalid amount or conversion.','user_accounts': user_accounts})
 
             with transaction.atomic():
                 transaction_obj = Transaction.objects.create(
@@ -68,9 +68,9 @@ def make_transaction(request):
                 sender_account_balance = sender_account.balance
                 amount_money = Money(amount, sender_account_balance.currency)
                 if amount_money.amount < Decimal('0.1'):
-                    return render(request, 'make_transaction.html', {'error_message': 'Invalid amount'})
+                    return render(request, 'make_transaction.html', {'error_message': 'Invalid amount','user_accounts': user_accounts})
                 elif sender_account_balance < amount_money:
-                    return render(request, 'make_transaction.html', {'error_message': 'Insufficient balance.'})
+                    return render(request, 'make_transaction.html', {'error_message': 'Insufficient balance.','user_accounts': user_accounts})
                 # error messages working, empty dropdown menu after failed transaction
                 sender_account.balance -= amount_money
                 receiver_account.balance += Money(
@@ -90,7 +90,7 @@ def make_transaction(request):
                 amount_money = Money(amount, sender_account_balance.currency)
 
                 if sender_account_balance < amount_money:
-                    return render(request, 'make_transaction.html', {'error_message': 'Insufficient balance.'})
+                    return render(request, 'make_transaction.html', {'error_message': 'Insufficient balance.', 'user_accounts': user_accounts})
 
                 sender_account.balance -= amount_money
                 receiver_account.balance += amount_money
