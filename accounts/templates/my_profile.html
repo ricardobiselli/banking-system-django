@@ -1,0 +1,21 @@
+{% extends 'base.html'%}
+
+{% block maintitle %}
+Your profile
+{% endblock %}
+
+{% block subtitle %}
+Your personal information:
+{% endblock %}
+
+{% block subcontainer %}
+<p> first name: {{user_profile.user.first_name}}</p>
+<p> last name: {{user_profile.user.last_name}}</p>
+<p> email: {{user_profile.user.email}}</p>
+<p> date of birth: {{user_profile.birth_date}}</p>
+
+
+
+
+{% endblock %}
+

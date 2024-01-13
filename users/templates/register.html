@@ -9,22 +9,16 @@
 {% endblock %}
 
 {% block maintitle %}
-  Register
+    Register
 {% endblock %}
-{% block navbar %}
-        <div class="bar">
-        
-
-          <a class="bar-button left-button" href="{% url 'account_details' %}">Home</a>
-          <a class="bar-button" href="{% url 'logout' %}">Back</a>
-        </div>
-      {% endblock %}
 {% block subtitle %}
-all fields are required:{% endblock %}
+    All fields are required:
+{% endblock %}
 {% block subcontainer %}
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="button">Register</button>
-  </form>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="button">Register</button>
+    </form>
+    {{ form.errors }}
 {% endblock %}

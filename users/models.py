@@ -22,8 +22,8 @@ class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField()
     first_name = forms.CharField(max_length=30, required=True)
     last_name = forms.CharField(max_length=30, required=True)
-    birth_date = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date'}))
-
+    birth_date = forms.DateField(required=True, widget=forms.DateInput(attrs={'type': 'date'}))
+    
     def clean_birth_date(self):
         birth_date = self.cleaned_data.get('birth_date')
 

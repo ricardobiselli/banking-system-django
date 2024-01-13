@@ -57,3 +57,8 @@ def delete_account(request, account_id):
     account.delete()
 
     return redirect('account_details')
+
+def my_profile(request):
+    user_profile = UserProfile.objects.filter(user=request.user).first()  # Use .first() to get a single UserProfile instance
+
+    return render(request, 'my_profile.html', {'user_profile': user_profile})
