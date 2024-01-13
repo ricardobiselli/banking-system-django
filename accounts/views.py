@@ -8,20 +8,16 @@ from django.conf import settings
 from users.models import UserProfile
 from transactions.models import TransferDestination
 
-@receiver(post_save, sender='auth.User')
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        UserProfile.objects.create(user=instance)
-
 @login_required
 def account_details(request):
     user_accounts = Account.objects.filter(user=request.user)
-    user_profile = UserProfile.objects.get(user=request.user)
+
+    user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+
     frequent_destinations = TransferDestination.objects.filter(
         user_profile=user_profile)
 
     return render(request, 'account_details.html', {'user_accounts': user_accounts, 'frequent_destinations': frequent_destinations})
-
 
 def generate_account_number():
     return str(random.randint(1000000000, 9999999999))
@@ -59,6 +55,6 @@ def delete_account(request, account_id):
     return redirect('account_details')
 
 def my_profile(request):
-    user_profile = UserProfile.objects.filter(user=request.user).first()  # Use .first() to get a single UserProfile instance
+    user_profile = UserProfile.objects.filter(user=request.user).first() 
 
     return render(request, 'my_profile.html', {'user_profile': user_profile})

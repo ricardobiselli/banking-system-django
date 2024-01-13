@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from djmoney.models.fields import MoneyField
-
 from users.models import UserProfile
 
 class Account(models.Model):

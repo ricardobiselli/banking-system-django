@@ -72,7 +72,6 @@ def make_transaction(request):
                     return render(request, 'make_transaction.html', {'error_message': 'Invalid amount','user_accounts': user_accounts})
                 elif sender_account_balance < amount_money:
                     return render(request, 'make_transaction.html', {'error_message': 'Insufficient balance.','user_accounts': user_accounts})
-                # error messages working, empty dropdown menu after failed transaction
                 sender_account.balance -= amount_money
                 receiver_account.balance += Money(
                     converted_amount, receiver_account.balance.currency)
