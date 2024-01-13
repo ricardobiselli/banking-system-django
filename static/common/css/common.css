@@ -177,7 +177,7 @@ body {
   }
   
   .footer-container {
-    text-align: center; /* Center-align the content inside the footer */
+    text-align: center; 
   }
   
   .footer {
@@ -189,6 +189,22 @@ body {
   }
   
   .footer p {
-    margin: 0; /* Remove default margin */
+    margin: 0; 
   }
   
+  /*not working in transaction_history.css...*/
+
+.transaction-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.transaction-table th,
+.transaction-table td {
+  border: 1px solid #000;
+  padding: 8px;
+}
+
+.transaction-table th {
+  background-color: #f2f2f2;
+}

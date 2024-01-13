@@ -1,4 +1,10 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block static_container %}
+  <link rel="stylesheet" type="text/css" href="{% static 'common/css/common.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/transaction_history.css' %}" />
+  <script src="{% static 'common/js/common.js' %}"></script>
+{% endblock %}
 <title>Transaction History</title>
 
 {% block maintitle %}
@@ -9,11 +15,26 @@
 {% endblock %}
 {% block subcontainer %}
   {% if transactions %}
-    <ul>
-      {% for transaction in transactions %}
-        <li>{{ transaction.sender.user.username }} sent {{ transaction.sender.currency }} {{ transaction.amount }} to {{ transaction.receiver.user.username }} on {{ transaction.timestamp }}</li>
-      {% endfor %}
-    </ul>
+    <table class="transaction-table">
+      <thead>
+        <tr>
+          <th>Sender</th>
+          <th>Receiver</th>
+          <th>Amount</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for transaction in transactions %}
+          <tr>
+            <td>{{ transaction.sender.user.username }}</td>
+            <td>{{ transaction.receiver.user.username }}</td>
+            <td>{{ transaction.sender.currency }} {{ transaction.amount }}</td>
+            <td>{{ transaction.timestamp }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   {% else %}
     <p>No transactions found.</p>
   {% endif %}

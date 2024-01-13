@@ -1,0 +1,20 @@
+/* transaction_history.css */
+
+/* Reset styles for the table within the transaction table */
+.transaction-table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  /* Target the table cells and headers within .transaction-table */
+  .transaction-table th,
+  .transaction-table td {
+    border: 1px solid #000;
+    padding: 8px;
+  }
+  
+  /* Style only the headers within .transaction-table */
+  .transaction-table th {
+    background-color: #f2f2f2;
+  }
+  

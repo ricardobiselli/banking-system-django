@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect
-
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import UserCreationForm
+from .models import CustomUserCreationForm #move to forms
 
-
-def register(request):
+"""def register(request):
     form = UserCreationForm()
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -12,8 +11,17 @@ def register(request):
             user = form.save()
             login(request, user)
             return redirect('open_new_account')
+    return render(request, 'register.html', {'form': form})"""
+    
+def register(request):
+    form = CustomUserCreationForm()
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('open_new_account')
     return render(request, 'register.html', {'form': form})
-
 
 def logout_view(request):
     logout(request)
