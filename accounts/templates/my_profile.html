@@ -1,21 +1,34 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 
 {% block maintitle %}
-Your profile
+  Your profile
 {% endblock %}
 
 {% block subtitle %}
-Your personal information:
+  Your personal information:
 {% endblock %}
 
 {% block subcontainer %}
-<p> first name: {{user_profile.user.first_name}}</p>
-<p> last name: {{user_profile.user.last_name}}</p>
-<p> email: {{user_profile.user.email}}</p>
-<p> date of birth: {{user_profile.birth_date}}</p>
-
-
-
-
+  <table class="transaction-table">
+    <tr>
+      <td>
+        <p>First Name: {{ user_profile.user.first_name }}</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>Last Name: {{ user_profile.user.last_name }}</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>Email: {{ user_profile.user.email }}</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>Date of Birth: {{ user_profile.birth_date }}</p>
+      </td>
+    </tr>
+  </table>
 {% endblock %}
-
