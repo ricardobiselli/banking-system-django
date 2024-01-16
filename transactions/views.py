@@ -55,7 +55,7 @@ def make_transaction(request):
                 sender_account.currency, receiver_account.currency)
 
             if exchange_rate is None:
-                return render(request, 'make_transaction.html', {'error_message': 'Failed to fetch exchange rates.','user_accounts': user_accounts})
+                return render(request, 'make_transaction.html', {'error_message': 'Failed to fetch exchange rates!','user_accounts': user_accounts})
 
             try:
                 converted_amount = Decimal(amount) * exchange_rate
@@ -126,11 +126,11 @@ def save_frequent_destination_prompt(request):
                     nickname=nickname,
                     currency=currency  
                 )
-                context = {'message': 'Frequent destination saved successfully.'}
+                context = {'message': 'Frequent recipient saved successfully!'}
             except Account.DoesNotExist:
                 context = {'message': 'Receiver account not found.'}
         else:
-            context = {'message': 'Frequent destination already exists.'}
+            context = {'message': 'Frequent recipient already exists.'}
 
         context['user_accounts'] = user_accounts
         return render(request, 'frequent_destination_saved_successfuly.html', context)

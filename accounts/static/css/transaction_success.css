@@ -9,7 +9,7 @@
 }
 
 
-#save-frequent-button {
+/*#save-frequent-button {
     display: flex;
    align-items: center;
     padding: 10px 20px;
@@ -29,4 +29,4 @@
     border: 1px solid black;
     color: black;
     transition: background-color 0.3s;
-  }
+  }/*

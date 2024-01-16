@@ -1,24 +1,23 @@
 <!DOCTYPE html>
+{% extends "base.html" %}
 <html>
   <head>
     <title>Frequent Destination Saved</title>
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'common/css/common.css' %}" />
   </head>
   <body>
-    <div class="main-container">
-      <h1>Transfer founds</h1>
-      <div class="bar">
-        {% if user_accounts %}
-          <p id="bar">Welcome! {{ user_accounts.first.user.username }}</p>
-        {% endif %}
+    {% block maintitle %}
+      Save frequent recipient
+    {% endblock %}
+    {% block subtitle %}
+          {{message}}
+        {% endblock %}
 
-        <a id="bar-button" href="{% url 'account_details' %}">Home</a>
-      </div>
-      <div class="sub-container">
-        <p>{{ message }}</p>
-        <a href="{% url 'account_details' %}" class="button">back to account details</a>
-      </div>
-    </div>
+    {% block subcontainer %}
+    <p>returning Home in 10 seconds...</p>
+    <div class="spinner" id="loading-spinner"></div>
+    <a href="{% url 'account_details' %}">return to Home now</a>
+    <script>
+      redirectAfterDelay("{% url 'account_details' %}", 10000)
+    </script>    {% endblock %}
   </body>
 </html>
