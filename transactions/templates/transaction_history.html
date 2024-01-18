@@ -29,7 +29,7 @@
           <tr>
             <td>{{ transaction.sender.user.username }}</td>
             <td>{{ transaction.receiver.user.username }}</td>
-            <td>{{ transaction.sender.currency }} {{ transaction.amount }}</td>
+            <td>{{ transaction.receiver.currency }} {{ transaction.amount }}</td>
             <td>{{ transaction.timestamp }}</td>
           </tr>
         {% endfor %}

@@ -211,3 +211,12 @@ body {
 .transaction-table th {
   background-color: #f2f2f2;
 }
+
+.account-details {
+  display: flex;
+  align-items: center;
+}
+
+#copy-button {
+  margin-left: 10px; /* Adjust the margin as needed */
+}

@@ -118,3 +118,12 @@ h3 {
     transition: background-color 0.3s;
 }
 
+.account-details {
+    display: flex;
+    align-items: center;
+  }
+  
+  #copy-button {
+    margin-left: auto; 
+    margin-right: 2px;
+  }

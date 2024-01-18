@@ -4,7 +4,6 @@
 {% block static_container %}
   <link rel="stylesheet" type="text/css" href="{% static 'common/css/common.css' %}" />
   <link rel="stylesheet" type="text/css" href="{% static 'css/account_details.css' %}" />
-
   <script src="{% static 'common/js/common.js' %}"></script>
 {% endblock %}
 
@@ -15,21 +14,25 @@
 {% block subtitle %}
   Your accounts:
 {% endblock %}
+
 {% block subcontainer %}
   <div class="accounts-container">
     {% for account in user_accounts %}
       <div class="individual-account-container">
         <h2>{{ account.currency }} Account</h2>
-        <p>Account number: {{ account.account_number }}</p>
+        <div class="account-details">
+          <span class="copyToClipboard" data-account-number="{{ account.account_number }}">Account number: {{ account.account_number }}</span>
+          <button id="copy-button" onclick="copyToClipboard(this)">Copy</button>
+        </div>
         <p id="account-balance">Balance: {{ account.balance }}</p>
         <a id="transaction-button" href="{% url 'transaction_history' account.id %}">Transaction History</a>
-
         <form action="{% url 'delete_account' account.id %}" method="post">
           {% csrf_token %}
           <a id="delete-button" href="{% url 'delete_account' account.id %}">Delete account</a>
         </form>
       </div>
     {% endfor %}
+
     <div class="buttons-container">
       <a href="{% url 'make_transaction' %}">Transfer to another account</a><br />
       <a href="{% url 'open_new_account' %}">Open a new account</a><br />
