@@ -22,15 +22,6 @@
     <label for="nickname">save this account for future transfers with a Nickname:</label><br />
     <input type="text" id="nickname" name="nickname" class="input" /><br />
     <input type="submit" id="save-frequent-button" value="Save as Frequent recipient" class="button" />
-
-
   </form>
   <a href="{% url 'account_details' %}" type="button" class="button">return to Home now</a>
-
-  <!--<p>returning to Home in 30 seconds...</p>
-  <div class="spinner" id="loading-spinner"></div>
-  <a href="{% url 'account_details' %}">return to Home now</a>
-  <script>
-    redirectAfterDelay("{% url 'account_details' %}", 30000)
-  </script>-->
 {% endblock %}

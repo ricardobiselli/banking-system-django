@@ -212,11 +212,63 @@ body {
   background-color: #f2f2f2;
 }
 
+.individual-account-container {
+  max-width: 30%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 5px 5px;
+  padding: 5px 5px;
+}
+
+.individual-account-container:hover {
+  background-color: #d5cdf3;
+  transition: background-color 0.3s;
+  border-radius: 5px;
+}
+
 .account-details {
   display: flex;
   align-items: center;
 }
 
+.accounts-container,
+.frequent-destinations-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+}
+
 #copy-button {
-  margin-left: 10px; /* Adjust the margin as needed */
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  text-decoration: none;
+  background-color: #ebebeb;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin: 10px auto;
+
+}
+
+#copy-button:hover {
+  background-color: #ebebeb;
+  border: 1px solid black;
+  color: black;
+  transition: background-color 0.3s;
+}
+
+#copy-button:active {
+  background-color: #47b37d;
+  color: white;
+  transition: background-color 0.1s;
+}
+
+hr {
+  width: 100%;
 }

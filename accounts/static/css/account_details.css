@@ -31,7 +31,7 @@ h1 {
 }
 
 .individual-account-container:hover {
-    background-color: #c9baff;
+    background-color: #d5cdf3;
     transition: background-color 0.3s;
     border-radius: 5px;
 }
@@ -68,7 +68,7 @@ h3 {
 }
 
 
-#transaction-button {
+#transaction-button{
 
 
 
@@ -76,7 +76,7 @@ h3 {
     align-items: center;
     padding: 10px 20px;
     text-decoration: none;
-    background-color: #91c9f7;
+    background-color: #ebebeb;
     color: black;
     border: none;
     border-radius: 5px;
@@ -93,6 +93,7 @@ h3 {
     transition: background-color 0.3s;
 }
 
+
 #delete-button {
 
 
@@ -101,7 +102,7 @@ h3 {
     align-items: center;
     padding: 10px 20px;
     text-decoration: none;
-    background-color: #cac9ca;
+    background-color: #ebebeb;
     color: rgb(75, 75, 75);
     border: none;
     border-radius: 5px;
@@ -111,7 +112,7 @@ h3 {
 
 }
 
-#delete-button:hover{
+#delete-button:hover {
     background-color: #ec7676;
     border: 1px solid black;
     color: black;
@@ -121,9 +122,5 @@ h3 {
 .account-details {
     display: flex;
     align-items: center;
-  }
-  
-  #copy-button {
-    margin-left: auto; 
-    margin-right: 2px;
-  }
+}
+

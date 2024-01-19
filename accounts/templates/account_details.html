@@ -32,7 +32,6 @@
         </form>
       </div>
     {% endfor %}
-
     <div class="buttons-container">
       <a href="{% url 'make_transaction' %}">Transfer to another account</a><br />
       <a href="{% url 'open_new_account' %}">Open a new account</a><br />
@@ -45,7 +44,10 @@
       {% for destination in frequent_destinations %}
         <div class="individual-account-container">
           <p>Nickname: {{ destination.nickname }}</p>
-          <p>Account Number: {{ destination.destination_account_number }}</p>
+          <div class="account-details">
+            <span class="copyToClipboard" data-account-number="{{ destination.destination_account_number }}">Account number: {{ destination.destination_account_number }}</span>
+            <button id="copy-button" onclick="copyToClipboard(this)">Copy</button>
+          </div>
           <p>currency: {{ destination.currency }}</p>
           <form action="{% url 'delete_frequent_destination' destination.id %}" method="post">
             {% csrf_token %}

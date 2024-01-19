@@ -10,25 +10,43 @@
 {% endblock %}
 
 {% block subcontainer %}
-  <form method="post" action="{% url 'make_transaction' %}">
-    {% csrf_token %}
+<form method="post" action="{% url 'make_transaction' %}">
+  {% csrf_token %}
+  <label for="sender_account">Sender's Account:</label><br>
+  <select id="sender_account" name="sender_account">
+    {% for account in user_accounts %}
+      <option value="{{ account.account_number }}">{{ account.account_number }} ({{ account.currency }} {{ account.balance }})</option>
+    {% endfor %}
+  </select><br />
+  <span id="currentBalance"></span><br />
+  <label for="receiver_account_number">Receiver's Account Number:</label><br />
+  <input type="text" id="receiver_account_number" name="receiver_account_number" /><br />
+  <label for="amount">Amount:</label><br />
+  <input type="text" id="amount" name="amount" /><br />
+  <input type="submit" value="Submit" class="button" />
+</form>
+{% if error_message %}
+  <script>
+    alert('{{ error_message }}')
+  </script>
+{% endif %}
+  {% if frequent_destinations %}
+  <hr>
+  <p>This are your frequent recipients:</p>
+  <div class="accounts-container">
+  {% for destination in frequent_destinations %}
+    <div class="individual-account-container">
+      <p>Nickname: {{ destination.nickname }}</p>
+      <div class="account-details">
+        <span class="copyToClipboard" data-account-number="{{ destination.destination_account_number }}">Account number: {{ destination.destination_account_number }}</span>
+        <button id="copy-button" onclick="copyToClipboard(this)">Copy</button>
+      </div>
+      <p>currency: {{ destination.currency }}</p>
+      
+    </div>
+  {% endfor %}
+{% else %}
+  <p>No frequent destinations found.</p>
+{% endif %} 
 
-    <label for="sender_account">Sender's Account:</label><br />
-    <select id="sender_account" name="sender_account">
-      {% for account in user_accounts %}
-        <option value="{{ account.account_number }}">{{ account.account_number }} ({{ account.currency }} {{ account.balance }})</option>
-      {% endfor %}
-    </select><br />
-    <span id="currentBalance"></span><br />
-    <label for="receiver_account_number">Receiver's Account Number:</label><br />
-    <input type="text" id="receiver_account_number" name="receiver_account_number" /><br />
-    <label for="amount">Amount:</label><br />
-    <input type="text" id="amount" name="amount" /><br />
-    <input type="submit" value="Submit" class="button" />
-  </form>
-  {% if error_message %}
-    <script>
-      alert('{{ error_message }}')
-    </script>
-  {% endif %}
 {% endblock %}
