@@ -1,7 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 import random
 from .models import Account
 from django.conf import settings
@@ -48,7 +46,7 @@ def delete_account(request, account_id):
         pass
 
     if account.balance.amount > 0:
-        return render(request, 'delete_account_error.html', {'account': account ,'error_message': 'You can not delete your account because you have a positive balance! please withdraw or transfer all your funds to another account, your current balance is'})
+        return render(request, 'delete_account_error.html', {'account': account ,'error_message': 'You can not delete your account because you have a positive balance! please withdraw or transfer all your funds to another account, your current balance is:'})
 
     account.delete()
     return redirect('account_details')
