@@ -15,11 +15,12 @@
           Transfer founds
         {% endblock %}
       </h1>
-      
+
       {% block navbar %}
         <div class="bar">
           {% if user_accounts %}
             <p id="bar">Welcome! {{ user_accounts.first.user.username }}</p>
+           
           {% endif %}
 
           <a class="bar-button left-button" href="{% url 'account_details' %}">Home</a>

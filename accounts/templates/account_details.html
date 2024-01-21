@@ -33,11 +33,12 @@
       </div>
     {% endfor %}
     <div class="buttons-container">
-      <a href="{% url 'make_transaction' %}">Transfer to another account</a><br />
+      <a href="{% url 'make_transaction' %}">Make a transfer</a><br />
       <a href="{% url 'open_new_account' %}">Open a new account</a><br />
     </div>
   </div>
   <div class="accounts-container">
+    <hr>
     <h3 id="subtitle">Frequent Recipients:</h3>
 
     {% if frequent_destinations %}

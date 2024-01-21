@@ -84,7 +84,7 @@ def make_transaction(request):
                 sender_account.save()
                 receiver_account.save()
 
-                return render(request, 'transaction_success.html', {'receiver_account_number': receiver_account_number})
+                return redirect('transaction_success', receiver_account_number=receiver_account_number) 
 
         else:
             with transaction.atomic():
@@ -103,8 +103,7 @@ def make_transaction(request):
                 sender_account.save()
                 receiver_account.save()
 
-                return render(request, 'transaction_success.html', {'receiver_account_number': receiver_account_number})
-
+                return redirect('transaction_success', receiver_account_number=receiver_account_number) 
     return render(request, 'make_transaction.html', {'user_accounts': user_accounts, 'frequent_destinations': frequent_destinations})
 
 
@@ -164,3 +163,7 @@ def transaction_history(request, account_id):
     transactions = Transaction.objects.filter(
         sender=user_account) | Transaction.objects.filter(receiver=user_account).order_by('-timestamp')
     return render(request, 'transaction_history.html', {'user_accounts': user_accounts, 'transactions': transactions})
+
+def transaction_success(request, receiver_account_number):
+    context = {'receiver_account_number': receiver_account_number}
+    return render(request, 'transaction_success.html', context)

@@ -10,6 +10,6 @@ urlpatterns = [
          name='save_frequent_destination_prompt'),
     path('delete_frequent_destination/<int:destination_id>/',
          views.delete_frequent_destination, name='delete_frequent_destination'),
-    #path('transaction_success/', views.transaction_success, name="transaction_success"),
+    path('transaction_success/<int:receiver_account_number>/', views.transaction_success, name="transaction_success"),
 
 ]

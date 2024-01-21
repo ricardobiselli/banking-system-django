@@ -56,5 +56,7 @@ def delete_account(request, account_id):
 
 def my_profile(request):
     user_profile = UserProfile.objects.filter(user=request.user).first() 
+    user_accounts = Account.objects.filter(user=request.user)
+    #review use of account vs profile on other views
 
-    return render(request, 'my_profile.html', {'user_profile': user_profile})
+    return render(request, 'my_profile.html', {'user_profile': user_profile, 'user_accounts': user_accounts})
