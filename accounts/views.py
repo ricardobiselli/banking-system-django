@@ -48,10 +48,9 @@ def delete_account(request, account_id):
         pass
 
     if account.balance.amount > 0:
-        return render(request, 'delete_account_error.html', {'account': account})
+        return render(request, 'delete_account_error.html', {'account': account ,'error_message': 'You can not delete your account because you have a positive balance! please withdraw or transfer all your funds to another account, your current balance is'})
 
     account.delete()
-
     return redirect('account_details')
 
 def my_profile(request):
