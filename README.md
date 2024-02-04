@@ -4,20 +4,20 @@ A Django web application for managing fund transfers between different currencie
 
 ## Features
 
-    Transaction Management:
-        Initiate fund transfers between accounts with automatic currency conversion.
-        View transaction history for each account.
+Transaction Management:
+Initiate fund transfers between accounts with automatic currency conversion.
+View transaction history for each account.
 
-    Account Management:
-        Open new accounts with customizable currency options.
-        Delete existing accounts.
+Account Management:
+Open new accounts with customizable currency options.
+Delete existing accounts.
 
-    Frequent Transfer Destinations:
-        Save and manage frequent transfer destinations for quick transactions.
+Frequent Transfer Destinations:
+Save and manage frequent transfer destinations for quick transactions.
 
-    User Authentication:
-        Register for a new account.
-        Log in and log out securely.
+User Authentication:
+Register for a new account.
+Log in and log out securely.
 
 ## Getting Started
 
