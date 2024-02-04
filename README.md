@@ -28,25 +28,25 @@ A Django web application for managing fund transfers between different currencie
 Make sure you have Python and Django installed on your system.
 Installation
 
-    Clone the repository:
+Clone the repository:
 
     https://github.com/ricardobiselli/banking-system-django.git
 
-    Navigate to the project directory:
+Navigate to the project directory:
 
     cd banking-system.django
 
-    Install the required dependencies:
+Install the required dependencies:
 
     pip install -r requirements.txt
 
-    Apply database migrations:
+Apply database migrations:
 
     python manage.py migrate
 
 ### Usage
 
-    Run the Django development server:
+Run the Django development server:
 
     python manage.py runserver
 
