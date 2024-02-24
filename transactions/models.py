@@ -5,6 +5,7 @@ from django.db import transaction
 from decimal import Decimal, InvalidOperation
 from djmoney.money import Money
 from .utils import get_exchange_rate
+from django.db.models import F
 
 class Transaction(models.Model):
     sender = models.ForeignKey(Account, related_name='sent_transactions', on_delete=models.CASCADE)
@@ -31,18 +32,17 @@ class Transaction(models.Model):
             transaction_obj = cls.objects.create(
                 sender=sender_account, receiver=receiver_account, amount=converted_amount)
 
-            sender_account_balance = sender_account.balance
-            amount_money = Money(amount, sender_account_balance.currency)
-            if amount_money.amount < Decimal('0.1'):
-                raise ValueError('Invalid amount')
-            elif sender_account_balance < amount_money:
+            sender_account_balance = F('balance') - Money(amount, sender_account.balance.currency)
+            sender_account_balance_updated = Account.objects.filter(id=sender_account.id).update(balance=sender_account_balance)
+
+            if sender_account_balance_updated == 0:
                 raise ValueError('Insufficient balance.')
 
-            sender_account.balance -= amount_money
-            receiver_account.balance += Money(converted_amount, receiver_account.balance.currency)
+            receiver_account_balance = F('balance') + Money(converted_amount, receiver_account.balance.currency)
+            receiver_account_balance_updated = Account.objects.filter(id=receiver_account.id).update(balance=receiver_account_balance)
 
-            sender_account.save()
-            receiver_account.save()
+            if receiver_account_balance_updated == 0:
+                raise ValueError('Failed to update receiver balance.')
 
         return transaction_obj
 
